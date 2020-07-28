@@ -47,7 +47,7 @@ npm install:
   * nodemon - Wathcher changes and reload dev server
 
 
-`npm i express connect-mongo mongoose dotenv bcrypt express-session passport passport-google-oauth20 passport-slack faker ejs morgan multer multer-storage-cloudinary cloudinary nodemailer & npm i nodemon --save-dev`
+`npm i express connect-mongo mongoose dotenv bcrypt express-session passport passport-google-oauth20 passport-slack faker ejs morgan multer multer-storage-cloudinary cloudinary nodemailer express-ejs-layouts & npm i nodemon --save-dev`
 
 ### 1.5 - Config scripts commands cli on package.json 
 

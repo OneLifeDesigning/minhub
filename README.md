@@ -37,6 +37,7 @@ npm install:
   * passport-slack - Manage proccess login/register users (RRSS)
   * faker - Get random data
   * ejs - Template engine
+  * express-ejs-layouts - Template layout engine
   * morgan - Manage logs on app
   * multer - Uploads files to cloud (Dependence)
   * multer-storage-cloudinary - Uploads files to cloud (Specific dependence)

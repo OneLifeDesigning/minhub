@@ -52,7 +52,7 @@ npm install:
 ### 1.5 - Config scripts commands cli on package.json 
 
   * start: "node app.js",
-  * dev: "nodemon -e hbs,js,css app.js",
+  * dev: "nodemon -e ejs,js,css app.js",
   * seeds: "node ./bin/seeds"
 
 ### 1.5 - Add essentials Global Variables 

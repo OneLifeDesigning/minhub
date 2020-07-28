@@ -30,7 +30,7 @@ npm install:
   * connect-mongo - Conect to DB
   * mongoose - Manage DB
   * dotenv - Use Environment Variables
-  * bcrypt - Encryp data (pass)
+  * bcrypt - Encrypt data (pass)
   * express-session - Create LOCAL sessions for loged users
   * passport -  Manage proccess login/register users
   * passport-google-oauth20 - Manage proccess login/register users (RRSS)

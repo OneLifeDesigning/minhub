@@ -22,3 +22,56 @@ Exercise based on the knowledge acquired in Module 2 of WPTMAD0420
 
 Force install npm and configure package.json after.
 
+### 1.3 - Add basic packages 
+npm install:
+
+* dependencies
+  * express - Framework for node 
+  * connect-mongo - Conect to DB
+  * mongoose - Manage DB
+  * dotenv - Use Environment Variables
+  * bcrypt - Encryp data (pass)
+  * express-session - Create LOCAL sessions for loged users
+  * passport -  Manage proccess login/register users
+  * passport-google-oauth20 - Manage proccess login/register users (RRSS)
+  * passport-slack - Manage proccess login/register users (RRSS)
+  * faker - Get random data
+  * ejs - Template engine
+  * morgan - Manage logs on app
+  * multer - Uploads files to cloud (Dependence)
+  * multer-storage-cloudinary - Uploads files to cloud (Specific dependence)
+  * cloudinary - Uploads files to cloud (provider) 
+  * nodemailer - Send transactional emails
+
+* devDependencies
+  * nodemon - Wathcher changes and reload dev server
+
+
+`npm i express connect-mongo mongoose dotenv bcrypt express-session passport passport-google-oauth20 passport-slack faker ejs morgan multer multer-storage-cloudinary cloudinary nodemailer & npm i nodemon --save-dev`
+
+### 1.5 - Config scripts commands cli on package.json 
+
+  * start: "node app.js",
+  * dev: "nodemon -e hbs,js,css app.js",
+  * seeds: "node ./bin/seeds"
+
+### 1.5 - Add essentials Global Variables 
+.env
+.env.template
+
+* PORT=
+* CLOUDINARY_NAME=
+* CLOUDINARY_KEY=
+* CLOUDINARY_SECRET=
+* MONGODB_URI=
+* NM_PASS=
+* NM_USER=
+* SLACK_CLIENT_ID=
+* SLACK_CLIENT_SECRET=
+* GOOGLE_CLIENT_ID=
+* GOOGLE_CLIENT_SECRET=
+* SESSION_SECRET=
+* SESSION_SECURE=
+* SESSION_MAX_AGE=
+
+

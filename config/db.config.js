@@ -5,8 +5,8 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
   .then(() => console.info(`Successfully connected to the database ${MONGODB_URI}`))
   .catch(error => console.error(`An error ocurred trying to connect to de database ${MONGODB_URI}`, error));
 
-process.on('SIGINT', function () {
-  mongoose.connection.close(function () {
+process.on('SIGINT',  () => {
+  mongoose.connection.close( () => {
     console.log('Mongoose disconnected on app termination');
     process.exit(0);
   });

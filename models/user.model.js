@@ -1,5 +1,5 @@
-const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -17,7 +17,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Name is required"],
     minlength: [3, "Name needs at last 3 chars"],
-    trim: true,
+    trim: true
+  },
+  lastname: {
+    type: String,
+    required: [true, "Lastname is required"],
+    minlength: [3, "Lastname needs at last 3 chars"],
+    trim: true
   },
   email: {
     type: String,
@@ -40,6 +46,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     minlength: [8, "password min length is 8"]
+  },
+  bio: {
+    type: String,
+    maxlength: 100
   },
   bio: {
     type: String,

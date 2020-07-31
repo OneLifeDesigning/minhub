@@ -45,15 +45,25 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    trim: true,
     minlength: [8, "password min length is 8"]
   },
   bio: {
     type: String,
     maxlength: 100
   },
-  bio: {
+  company: {
     type: String,
-    maxlength: 100
+    maxlength: 20
+  },
+  location: {
+    type: String,
+    maxlength: 20
+  },
+  website: {
+    type: String,
+    trim: true,
+    maxlength: 20
   },
   activation: {
     active: {
@@ -65,18 +75,34 @@ const userSchema = new mongoose.Schema({
       default: generateRandomToken
     }
   },
-  social: {
+  loginSocial: {
     slack: String,
     google: String
+  },
+  profilesSocial: {
+    slack: {
+      type: String,
+      trim: true
+    },
+    google: {
+      type: String,
+      trim: true
+    },
+    linkedin: {
+      type: String,
+      trim: true
+    }
   }
 });
 
 userSchema.pre('save', function (next) {
   if (this.isModified('password')) {
-    bcrypt.hash(this.password, 10).then((hash) => {
-      this.password = hash;
-      next();
-    });
+    bcrypt.hash(this.password, 10)
+      .then((hash) => {
+        this.password = hash;
+        next();
+      })
+      .catch(next())
   } else {
     next();
   }

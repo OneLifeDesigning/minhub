@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
     required: [true, "Username is required"],
     unique: true,
     trim: true,
-    lowercase: true,
+    lowercase: true
   },
   avatar: {
     type: String,

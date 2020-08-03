@@ -77,17 +77,38 @@ npm install:
 
 ### 1.6 - Add template files
  /views/layout.ejs
-        …index.ejs
+
+       …index.ejs
 
 ### 2.0 - Create db.config.js
 /config/db.config.js
-  Add: 
-  1. mongoose
-  2. mongoose_uri .env || localhost
-  3. mongoose.connect(options).promise
-  4. proccess.on('SIGNIT', mongoose.connection.close(process.exit(0))) <-- Close all connexions with db
+
+    Add: 
+      1. mongoose
+      2. mongoose_uri .env || localhost
+      3. mongoose.connect(options).promise
+      4. proccess.on('SIGNIT', mongoose.connection.close(process.exit(0))) <-- Close all connexions with db
 
 ### 3.0 - Models
 /models/user.model.js
-  
+  * name
+  * lastname
+  * email
+  * username
+  * avatar
+  * password
+  * bio
+  * company
+  * location
+  * website
+  * activation
+    * active
+    * token
+  * loginSocial: 
+      * slack
+      * google
+  * profilesSocial
+    * slack
+    * google
+    * linkedin
 

@@ -4,7 +4,6 @@ const logger = require('morgan')
 const path = require('path')
 
 require('./config/db.config')
-// require('./config/ejs.config')
 
 const app = express()
 
@@ -12,9 +11,6 @@ const app = express()
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(logger("dev"))
-// app.use(cookieParser())
-// app.use(session)
-// app.use(passport)
 
 /**
  * View engine setup

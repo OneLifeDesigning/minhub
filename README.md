@@ -89,5 +89,7 @@ npm install:
 
 ### 3.0 - Models
 /models/user.model.js
-  
+        …organization.model.js
+        …projetcs.model.js
+        …
 

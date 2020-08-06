@@ -41,7 +41,8 @@ const userSchema = new mongoose.Schema({
     lowercase: true
   },
   avatar: {
-    type: String
+    type: String,
+    trim: true
   },
   password: {
     type: String,
@@ -54,16 +55,16 @@ const userSchema = new mongoose.Schema({
   },
   company: {
     type: String,
-    maxlength: 20
+    maxlength: 100
   },
   location: {
     type: String,
-    maxlength: 20
+    maxlength: 100
   },
   website: {
     type: String,
     trim: true,
-    maxlength: 20
+    maxlength: 100
   },
   activation: {
     active: {
@@ -96,7 +97,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ['admin', 'superadmin', 'normal'],
-    default: 'mormal'
+    default: 'normal'
   }
 },
 { timestamps: true, toJSON: { virtuals: true } });

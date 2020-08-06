@@ -8,8 +8,7 @@ const attachmentSchema = new mongoose.Schema(
       trim: true
     },
     type: {
-      type: String,
-      enum: ['pdf', 'zip', 'image', 'gallery', 'pdf'],
+      type: String
     },
     src: {
       type: String,
@@ -21,7 +20,7 @@ const attachmentSchema = new mongoose.Schema(
       ref: "Project",
       required: true
     },
-    user: {
+    owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true

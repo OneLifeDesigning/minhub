@@ -46,9 +46,10 @@ npm install:
 
 * devDependencies
   * nodemon - Wathcher changes and reload dev server
+  * faker - Generate massive data
 
 
-`npm i express connect-mongo mongoose dotenv bcrypt express-session passport passport-google-oauth20 passport-slack faker ejs morgan multer multer-storage-cloudinary cloudinary nodemailer express-ejs-layouts & npm i nodemon --save-dev`
+`npm i express connect-mongo mongoose dotenv bcrypt express-session passport passport-google-oauth20 passport-slack faker ejs morgan multer multer-storage-cloudinary cloudinary nodemailer express-ejs-layouts & npm i nodemon faker --save-dev`
 
 ### 1.5 - Config scripts commands cli on package.json 
 
@@ -121,8 +122,8 @@ npm install:
   * ownerId -> userId
   * Virtuals
     * gallery -> attachment -| Relation 1 to N
-    * files -> attachment -| Relation 1 to2 N
-    * collaborators -> user-| Relation 1 to N
+    * files -> attachment -| Relation 1 to N
+    * collaborators -> user -| Relation 1 to N
 
 /models/attachment.model.js
   * name

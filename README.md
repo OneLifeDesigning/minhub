@@ -114,7 +114,7 @@ npm install:
     * linkedin
   * role 
 
-/models/projetc.model.js
+/models/project.model.js
   * name
   * description
   * url
@@ -123,7 +123,6 @@ npm install:
   * Virtuals
     * gallery -> attachment -| Relation 1 to N
     * files -> attachment -| Relation 1 to N
-    * collaborators -> user -| Relation 1 to N
 
 /models/attachment.model.js
   * name
@@ -132,13 +131,61 @@ npm install:
   * projetcId
   * userId
 
-/models/collaborator.model.js
-  * userId
-  * projetcId
+#### TODO
+    /models/like.model.js
+      * projetcId
+      * commentId
+      * userId
 
-### BONUS
+    /models/comment.model.js
+      * text
+      * commentId
+      * projetcId
+      * userId
+
+  ##### BONUS
+    /models/collaborator.model.js
+      * userId
+      * projetcId
+
     /models/organization.model.js
       * name
       * description
-      * owner_id -> user_id
-      * collaborators -> {user_id, user_id, user_id}
+      * owner -> userId
+      * collaborator -> {userId, userId, userId}
+
+### 4.0 - Seeds
+/bin/seeds.js
+  Import DB connexion `require("../config/db.config")`
+  
+  Use Schema Model for Collections:
+  `const User = require("../models/user.model");`
+  `const Project = require("../models/project.model");`
+  `const Attachment = require("../models/attachment.model");`
+  
+  #### RANDOM DATA GENERATOR
+    const faker = require("faker");
+
+### 5.0 - Routes/Controllers
+/config/routes.js
+  ##### Public routes (logged or not)
+  1. home
+    * Wellcome page
+  2. projects
+    * View all projects
+    * View single project (Attachments, comments)
+  3. users
+    * View all users
+    * View single users
+    * Login
+    * Create new user
+  4. errors page
+  ##### Auth routes (logged)
+  1. projects
+    * Create, Edit, Delete own projects
+  2. user
+    * Edit profile user
+  3. comment
+    * Create, Edit, Delete own comments
+  4. like
+    * Mark unmark like

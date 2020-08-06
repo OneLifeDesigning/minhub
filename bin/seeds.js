@@ -5,8 +5,6 @@ const Project = require("../models/project.model");
 const Attachment = require("../models/attachment.model");
 const faker = require("faker");
 
-const userIds = [];
-
 Promise.all([
   User.deleteMany(),
   Project.deleteMany(),
@@ -35,7 +33,7 @@ Promise.all([
                 name: faker.company.companyName(),
                 description: faker.lorem.sentence(),
                 url: faker.internet.domainName(),
-                image: faker.image.avatar(),
+                image: faker.image.image(),
                 owner: user._id
               })
               project.save()
@@ -53,6 +51,9 @@ Promise.all([
               })
             }
         })
+        if (i === 99) {
+          console.log('complete database')
+        }
       }
     }
   )

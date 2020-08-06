@@ -38,10 +38,10 @@ const userSchema = new mongoose.Schema({
     required: [true, "Username is required"],
     unique: true,
     trim: true,
-    lowercase: true,
+    lowercase: true
   },
   avatar: {
-    type: String,
+    type: String
   },
   password: {
     type: String,
@@ -92,6 +92,11 @@ const userSchema = new mongoose.Schema({
       type: String,
       trim: true
     }
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'superadmin', 'normal'],
+    default: 'mormal'
   }
 },
 { timestamps: true, toJSON: { virtuals: true } });

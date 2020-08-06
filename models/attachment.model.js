@@ -1,26 +1,27 @@
 const mongoose = require("mongoose");
 
-require('./user.model')
-require('./attachment.model')
-
-const projectSchema = new mongoose.Schema(
+const attachmentSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, "Name is required"],
       trim: true
     },
-    description: String,
-    url: {
+    type: {
+      type: String,
+      enum: ['pdf', 'zip', 'image', 'gallery', 'pdf'],
+    },
+    src: {
       type: String,
       trim: true,
       lowercase: true
     },
-    image: {
+    project: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Attachment"
+      ref: "Project",
+      required: true
     },
-    owner: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true
@@ -29,13 +30,6 @@ const projectSchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true } }
 );
 
-projectSchema.virtual("attachments", {
-  ref: "Attachment",
-  localField: "_id",
-  foreignField: "attachment",
-  justOne: false
-});
+const Attachment = mongoose.model("Attachment", attachmentSchema);
 
-const Project = mongoose.model("Project", projectSchema);
-
-module.exports = Project;
+module.exports = Attachment;

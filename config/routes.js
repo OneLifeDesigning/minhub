@@ -7,5 +7,6 @@ const projectController = require('../controllers/project.controller')
 router.get('/', publicController.home)
 router.get('/users', userController.all)
 router.get('/projects', projectController.all)
+router.get('/projects/show/:id', projectController.show)
 
 module.exports = router;

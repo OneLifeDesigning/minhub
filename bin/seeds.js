@@ -5,6 +5,8 @@ const Project = require("../models/project.model");
 const Attachment = require("../models/attachment.model");
 const faker = require("faker");
 
+const attachmentIds = []
+
 Promise.all([
   User.deleteMany(),
   Project.deleteMany(),
@@ -46,14 +48,16 @@ Promise.all([
                     project: project._id,
                     owner: user._id
                   })
+                  attachmentIds.push(attachment.id)
+
+                  if (attachmentIds.length === 4000) {
+                    console.log('Seeds are in database, press Ctrl+c to close connection')
+                  }
                   attachment.save()
                 }
               })
             }
         })
-        if (i === 99) {
-          console.log('complete database')
-        }
       }
     }
   )

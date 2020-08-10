@@ -7,7 +7,6 @@ module.exports.all = (req, res, next) => {
   .populate('owner')
   .then(
     projects => {
-      console.log(projects)
       res.render('project/all', {
         title: 'All projects',
         projects
@@ -22,12 +21,10 @@ module.exports.show = (req, res, next) => {
   .populate('attachments')
   .then(
     project => {
-      res.json(project)
-      // console.log(projects)
-      // res.render('project/all', {
-      //   title: 'All projects',
-      //   projects
-      // })
+      res.render('project/all', {
+        title: 'All projects',
+        projects
+      })
     }
   )
   .catch(next)

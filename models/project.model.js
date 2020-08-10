@@ -29,15 +29,19 @@ const projectSchema = new mongoose.Schema(
       required: true
     }
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true }
 );
 
 projectSchema.virtual("attachments", {
   ref: "Attachment",
   localField: "_id",
-  foreignField: "attachment",
+  foreignField: "project",
   justOne: false
 });
+
+projectSchema.set('toObject', { virtuals: true });
+projectSchema.set('toJSON', { virtuals: true });
+
 
 const Project = mongoose.model("Project", projectSchema);
 

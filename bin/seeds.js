@@ -40,17 +40,22 @@ Promise.all([
               })
               project.save()
               .then(() => {
-                for (let i = 0; i < 4; i++) {
+                for (let i = 0; i < 8; i++) {
                   const attachment = new Attachment({
                     name: faker.system.fileName(),
                     type: faker.system.fileType(),
                     src: faker.system.filePath(),
                     project: project._id,
                     owner: user._id
-                  })
+                  })    
+                  if (i <= 3) {
+                    attachment.type = 'gallery'
+                    attachment.src = faker.image.image()
+                  }
+                  
                   attachmentIds.push(attachment.id)
 
-                  if (attachmentIds.length === 4000) {
+                  if (attachmentIds.length === 8000) {
                     console.log('Seeds are in database, press Ctrl+c to close connection')
                   }
                   attachment.save()

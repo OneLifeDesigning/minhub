@@ -166,7 +166,8 @@ npm install:
 ### 4.0 - Seeds
 /bin/seeds.js
 
-    Import DB connexion `require("../config/db.config")`    
+    Import DB connexion `require("../config/db.config")`
+
     Use Schema Model for Collections:
     `const User = require("../models/user.model");`
     `const Project = require("../models/project.model");`
@@ -179,35 +180,35 @@ npm install:
 
   #### 5.1 - Routes
   /config/routes.js
+  
+  ##### Public routes (logged or not)
+      1. home
+        - Wellcome page -> render
+      2. project
+        - View all projects  -> get
+        - View single project (Attachments, comments)  -> get
+      3. user
+        - View all users -> get
+        - View single users  -> get
+      4. auth
+        - Login -> get/post
+        - Create new user -> get/post
+        - Reactivate token -> get/post
+        - Recovery pass -> get/post
+        - Login Social -> get/post
+      5. errors page -> get
 
-    ##### Public routes (logged or not)
-    1. home
-      - Wellcome page -> render
-    2. project
-      - View all projects  -> get
-      - View single project (Attachments, comments)  -> get
-    3. user
-      - View all users -> get
-      - View single users  -> get
-    4. auth
-      - Login -> get/post
-      - Create new user -> get/post
-      - Reactivate token -> get/post
-      - Recovery pass -> get/post
-      - Login Social -> get/post
-    5. errors page -> get
-
-    ##### Auth routes (only if logged)
-    1. project (own projects)
-      - Create, Edit -> get/post
-      - Delete -> post
-    2. user
-      - Edit profile user  -> get/post
-    3. comment
-      - Create, Edit -> get/post
-      - Delete -> post
-    4. like
-      - Mark/unmark like -> post
+  ##### Auth routes (only if logged)
+      1. project (own projects)
+        - Create, Edit -> get/post
+        - Delete -> post
+      2. user
+        - Edit profile user  -> get/post
+      3. comment
+        - Create, Edit -> get/post
+        - Delete -> post
+      4. like
+        - Mark/unmark like -> post
 
   #### 5.1 - Controllers
   /controlers/user.controller.js

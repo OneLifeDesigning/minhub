@@ -180,7 +180,7 @@ npm install:
     * Login
     * Create new user
   4. errors page
-  ##### Auth routes (logged)
+  ##### Auth routes (only if logged)
   1. projects
     * Create, Edit, Delete own projects
   2. user
@@ -188,4 +188,4 @@ npm install:
   3. comment
     * Create, Edit, Delete own comments
   4. like
-    * Mark unmark like
+    * Mark/unmark like

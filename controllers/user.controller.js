@@ -13,3 +13,52 @@ module.exports.all = (req, res) => {
     }
   )
 }
+
+module.exports.login = (req, res) => {
+  res.render('user/login', {
+    title: 'Login', email: null
+  })
+}
+
+module.exports.doLogin = (req, res, next) => {
+  User.findOne({email: req.body.email})
+    .then(user => {
+      if (user) {
+        user.checkPassword(req.body.password)
+          .then(match => {
+            if (match) {
+              if (user.activation.active) {
+                req.session.userId = user._id
+
+                res.redirect('/profile')
+              } else {
+                res.render('auth/login', {
+                  error: {
+                    validation: {
+                      message: 'Your account is not active, check your email!'
+                    }
+                  }, email: user.email
+                })
+              }
+            } else {
+              res.render('auth/login', {
+                error: {
+                  email: {
+                    message: 'This combination email with password does not match, try again'
+                  }
+                }, email: user.email
+              })
+            }
+          })
+      } else {
+        res.render('auth/login', {
+          error: {
+            email: {
+              message: "This combination email with password does not match, try again",
+            },
+          }, email: user.email
+        });
+      }
+    })
+    .catch(next)
+}

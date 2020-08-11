@@ -8,21 +8,20 @@ Exercise based on the knowledge acquired in Module 2 of WPTMAD0420
 
 
 ### 1.1 - Create files:
-* app.js
-* bin/seeds.js
-* .env
-* .env.template
-* .gitignore 
-    * node_modules
-    * package-lock.json
-    * .env
-    * .DS_Store
+* /app.js
+* /.env
+* /.env.template
+* /.gitignore 
+    _> node_modules
+    _> package-lock.json
+    _> .env
+    _> .DS_Store
 
 ### 1.2 - npm init -y
 
 Force install npm and configure package.json after.
 
-### 1.3 - Add basic packages 
+### 1.3 - Add packages 
 npm install:
 
 * dependencies
@@ -58,8 +57,9 @@ npm install:
   * seeds: "node ./bin/seeds"
 
 ### 1.5 - Add essentials Global Variables 
-.env
-.env.template
+
+    /.env -> Add .gitignore file please
+    /.env.template -> Rename for use
 
 * PORT=
 * CLOUDINARY_NAME=

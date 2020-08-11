@@ -165,20 +165,21 @@ npm install:
 
 ### 4.0 - Seeds
 /bin/seeds.js
-  Import DB connexion `require("../config/db.config")`
-  
-  Use Schema Model for Collections:
-  `const User = require("../models/user.model");`
-  `const Project = require("../models/project.model");`
-  `const Attachment = require("../models/attachment.model");`
-  
-  #### RANDOM DATA GENERATOR
-    const faker = require("faker");
+
+    Import DB connexion `require("../config/db.config")`    
+    Use Schema Model for Collections:
+    `const User = require("../models/user.model");`
+    `const Project = require("../models/project.model");`
+    `const Attachment = require("../models/attachment.model");`
+      
+    #### RANDOM DATA GENERATOR
+      const faker = require("faker");
 
 ### 5.0 - Routes/Controllers
 
   #### 5.1 - Routes
   /config/routes.js
+
     ##### Public routes (logged or not)
     1. home
       - Wellcome page -> render
@@ -195,6 +196,7 @@ npm install:
       * Recovery pass -> get/post
       * Login Social -> get/post
     5. errors page -> get
+
     ##### Auth routes (only if logged)
     1. project (own projects)
       * Create, Edit -> get/post
@@ -207,7 +209,7 @@ npm install:
     4. like
       * Mark/unmark like -> post
 
-  #### 5.1 - Routes
+  #### 5.1 - Controllers
   /controlers/user.controller.js
 
 

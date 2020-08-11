@@ -12,11 +12,10 @@ Exercise based on the knowledge acquired in Module 2 of WPTMAD0420
 * /.env
 * /.env.template
 * /.gitignore 
-    
-    _> node_modules
-    _> package-lock.json
-    _> .env
-    _> .DS_Store
+    - node_modules
+    - package-lock.json
+    - .env
+    - .DS_Store
 
 ### 1.2 - npm init -y
 

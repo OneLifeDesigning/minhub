@@ -152,7 +152,7 @@ npm install:
       · projetcId
       · userId
 
-    ##### BONUS:
+    // BONUS:
       /models/collaborator.model.js
         · userId
         · projetcId
@@ -172,8 +172,8 @@ npm install:
     `const User = require("../models/user.model");`
     `const Project = require("../models/project.model");`
     `const Attachment = require("../models/attachment.model");`
-      
-    #### RANDOM DATA GENERATOR
+
+    // RANDOM DATA GENERATOR
       const faker = require("faker");
 
 ### 5.0 - Routes/Controllers

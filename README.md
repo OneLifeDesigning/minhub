@@ -77,18 +77,18 @@ npm install:
 * SESSION_MAX_AGE=
 
 ### 1.6 - Add template files
-/views/layout.ejs
-      …index.ejs
-      …/auth/login.ejs
-            …register.ejs
-            …recovery.ejs
-            …refreshtoken.ejs
-      …/project/all.ejs
-              …show.ejs
-              …form.ejs
-      …/user/all.ejs
-            …show.ejs
-            …form.ejs
+    /views/layout.ejs
+          …index.ejs
+          …/auth/login.ejs
+                …register.ejs
+                …recovery.ejs
+                …refreshtoken.ejs
+          …/project/all.ejs
+                  …show.ejs
+                  …form.ejs
+          …/user/all.ejs
+                …show.ejs
+                …form.ejs
 
 ### 2.0 - Create db.config.js
 /config/db.config.js

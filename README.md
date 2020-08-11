@@ -29,6 +29,7 @@ npm install:
   * connect-mongo - Conect to DB
   * mongoose - Manage DB
   * dotenv - Use Environment Variables
+  * cookie-parser - Manage cookies (userLogin)
   * bcrypt - Encrypt data (pass)
   * express-session - Create LOCAL sessions for loged users
   * passport -  Manage proccess login/register users
@@ -48,7 +49,7 @@ npm install:
   * faker - Generate massive data
 
 
-`npm i express connect-mongo mongoose dotenv bcrypt express-session passport passport-google-oauth20 passport-slack faker ejs morgan multer multer-storage-cloudinary cloudinary nodemailer express-ejs-layouts & npm i nodemon faker --save-dev`
+`npm i express connect-mongo mongoose dotenv bcrypt cookie-parser express-session passport passport-google-oauth20 passport-slack faker ejs morgan multer multer-storage-cloudinary cloudinary nodemailer express-ejs-layouts & npm i nodemon faker --save-dev`
 
 ### 1.5 - Config scripts commands cli on package.json 
 
@@ -190,10 +191,10 @@ npm install:
       3. user
         - View all users -> get
         - View single users  -> get
-      4. auth
         - Login -> get/post
         - Create new user -> get/post
-        - Reactivate token -> get/post
+        - Validate token -> get
+        - Refresh token -> get/post
         - Recovery pass -> get/post
         - Login Social -> get/post
       5. errors page -> get

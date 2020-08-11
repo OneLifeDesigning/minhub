@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const logger = require('morgan')
+const cookieParser = require('cookie-parser')
 const path = require('path')
 
 
@@ -12,6 +13,7 @@ const app = express()
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(logger('dev'))
+app.use(cookieParser())
 
 /**
  * View engine setup

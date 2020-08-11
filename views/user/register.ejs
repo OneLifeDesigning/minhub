@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-12 col-md-8 col-lg-9">
+    <h1>Create new user</h1>
+    <form action="/doregister" method="POST" class="form-row"  enctype="multipart/form-data">
+      <div class="form-group col-12">
+        <label for="email">Email <sup class="text-danger">*</sup></label>
+        <input type="email" class="form-control" id="email" name="email" <% if (user.email) { %>value="<%= user.email %>" <% } %>>
+      </div>
+      <div class="form-group col-12">
+        <label for="password">Password <sup class="text-danger">*</sup></label>
+        <input name="password" type="password" class="form-control" id="password" <% if (user.password) { %>value="<%= user.password %>" <% } %>>
+      </div>
+      <hr>
+      <div class="form-group col-md-6">
+        <label for="name">Name <sup class="text-danger">*</sup></label>
+        <input type="text" class="form-control" id="name" name="name" <% if (user.name) { %>value="<%= user.name %>" <% } %>>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="lastname">Last name <sup class="text-danger">*</sup></label>
+        <input type="text" class="form-control" id="lastname" name="lastname" <% if (user.lastname) { %>value="<%= user.lastname %>" <% } %>>
+      </div>
+      <div class="form-group col-12">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" <% if (user.username) { %>value="<%= user.username %>" <% } %>>
+      </div>
+      <!-- <div class="form-group col-12">
+        <label>Avatar</label>
+        <div class="input-group mb-3">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="avatar" name="avatar" aria-describedby="avatarAddon01">
+            <label class="custom-file-label" for="avatar">Choose file</label>
+          </div>
+        </div>
+      </div> -->
+      <div class="form-group col-12">
+        <label for="bio">Bio:</label>
+        <textarea class="form-control" name="bio" id="bio" rows="3"><% if (user.bio) { %><%= user.bio %> <% } %></textarea>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label for="company">Company</label>
+        <input type="text" class="form-control" id="company" name="company" <% if (user.company) { %>value="<%= user.company %>" <% } %>>
+      </div>
+      <div class="form-group col-md-6 col-lg-4">
+        <label for="location">Location</label>
+        <input type="text" class="form-control" id="location" name="location" <% if (user.location) { %>value="<%= user.location %>" <% } %>>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <label for="website">Website</label>
+        <input type="text" class="form-control" id="website" name="website" <% if (user.website) { %>value="<%= user.website %>" <% } %>>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <label for="slack">Slack</label>
+        <input type="text" class="form-control" id="slack" name="profilesSocial[slack]" <% if (user.profilesSocial.slack) { %>value="<%= user.profilesSocial.slack %>" <% } %>>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <label for="google">Google</label>
+        <input type="text" class="form-control" id="google" name="profilesSocial[google]" <% if (user.profilesSocial.google) { %>value="<%= user.profilesSocial.google %>" <% } %>>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <label for="linkedin">Linkedin</label>
+        <input type="text" class="form-control" id="linkedin" name="profilesSocial[linkedin]" <% if (user.profilesSocial.linkedin) { %>value="<%= user.profilesSocial.linkedin %>" <% } %>>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">Register</button>
+    </form>
+  </div>
+  <div class="col-12 col-md-4 col-lg-3">
+    <h2 class="text-center">Do you have a user?</h2>
+    <a href="/login" class="btn btn-danger btn-block">Login</a>
+  </div>
+</div>

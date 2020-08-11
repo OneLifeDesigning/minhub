@@ -77,9 +77,18 @@ npm install:
 * SESSION_MAX_AGE=
 
 ### 1.6 - Add template files
- /views/layout.ejs
-
-       …index.ejs
+/views/layout.ejs
+      …index.ejs
+      …/auth/login.ejs
+            …register.ejs
+            …recovery.ejs
+            …refreshtoken.ejs
+      …/project/all.ejs
+              …show.ejs
+              …form.ejs
+      …/user/all.ejs
+            …show.ejs
+            …form.ejs
 
 ### 2.0 - Create db.config.js
 /config/db.config.js
@@ -131,7 +140,7 @@ npm install:
   * projetcId
   * userId
 
-#### TODO
+#### TODO:
     /models/like.model.js
       * projetcId
       * commentId
@@ -143,16 +152,16 @@ npm install:
       * projetcId
       * userId
 
-  ##### BONUS
-    /models/collaborator.model.js
-      * userId
-      * projetcId
+    ##### BONUS:
+      /models/collaborator.model.js
+        * userId
+        * projetcId
 
-    /models/organization.model.js
-      * name
-      * description
-      * owner -> userId
-      * collaborator -> {userId, userId, userId}
+      /models/organization.model.js
+        * name
+        * description
+        * owner -> userId
+        * collaborator -> {userId, userId, userId}
 
 ### 4.0 - Seeds
 /bin/seeds.js
@@ -167,25 +176,41 @@ npm install:
     const faker = require("faker");
 
 ### 5.0 - Routes/Controllers
-/config/routes.js
-  ##### Public routes (logged or not)
-  1. home
-    * Wellcome page
-  2. projects
-    * View all projects
-    * View single project (Attachments, comments)
-  3. users
-    * View all users
-    * View single users
-    * Login
-    * Create new user
-  4. errors page
-  ##### Auth routes (only if logged)
-  1. projects
-    * Create, Edit, Delete own projects
-  2. user
-    * Edit profile user
-  3. comment
-    * Create, Edit, Delete own comments
-  4. like
-    * Mark/unmark like
+
+  #### 5.1 - Routes
+  /config/routes.js
+    ##### Public routes (logged or not)
+    1. home
+      - Wellcome page -> render
+    2. project
+      * View all projects  -> get
+      * View single project (Attachments, comments)  -> get
+    3. user
+      * View all users -> get
+      * View single users  -> get
+    4. auth
+      * Login -> get/post
+      * Create new user -> get/post
+      * Reactivate token -> get/post
+      * Recovery pass -> get/post
+      * Login Social -> get/post
+    5. errors page -> get
+    ##### Auth routes (only if logged)
+    1. project (own projects)
+      * Create, Edit -> get/post
+      * Delete -> post
+    2. user
+      * Edit profile user  -> get/post
+    3. comment
+      * Create, Edit -> get/post
+      * Delete -> post
+    4. like
+      * Mark/unmark like -> post
+
+  #### 5.1 - Routes
+  /controlers/user.controller.js
+
+
+### 6.0 - Login/Register
+  Basic login User/Pass
+    

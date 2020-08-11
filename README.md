@@ -142,26 +142,26 @@ npm install:
 
 #### TODO:
     /models/like.model.js
-      * projetcId
-      * commentId
-      * userId
+      · projetcId
+      · commentId
+      · userId
 
     /models/comment.model.js
-      * text
-      * commentId
-      * projetcId
-      * userId
+      · text
+      · commentId
+      · projetcId
+      · userId
 
     ##### BONUS:
       /models/collaborator.model.js
-        * userId
-        * projetcId
+        · userId
+        · projetcId
 
       /models/organization.model.js
-        * name
-        * description
-        * owner -> userId
-        * collaborator -> {userId, userId, userId}
+        · name
+        · description
+        · owner -> userId
+        · collaborator -> {userId, userId, userId}
 
 ### 4.0 - Seeds
 /bin/seeds.js
@@ -184,30 +184,30 @@ npm install:
     1. home
       - Wellcome page -> render
     2. project
-      * View all projects  -> get
-      * View single project (Attachments, comments)  -> get
+      - View all projects  -> get
+      - View single project (Attachments, comments)  -> get
     3. user
-      * View all users -> get
-      * View single users  -> get
+      - View all users -> get
+      - View single users  -> get
     4. auth
-      * Login -> get/post
-      * Create new user -> get/post
-      * Reactivate token -> get/post
-      * Recovery pass -> get/post
-      * Login Social -> get/post
+      - Login -> get/post
+      - Create new user -> get/post
+      - Reactivate token -> get/post
+      - Recovery pass -> get/post
+      - Login Social -> get/post
     5. errors page -> get
 
     ##### Auth routes (only if logged)
     1. project (own projects)
-      * Create, Edit -> get/post
-      * Delete -> post
+      - Create, Edit -> get/post
+      - Delete -> post
     2. user
-      * Edit profile user  -> get/post
+      - Edit profile user  -> get/post
     3. comment
-      * Create, Edit -> get/post
-      * Delete -> post
+      - Create, Edit -> get/post
+      - Delete -> post
     4. like
-      * Mark/unmark like -> post
+      - Mark/unmark like -> post
 
   #### 5.1 - Controllers
   /controlers/user.controller.js

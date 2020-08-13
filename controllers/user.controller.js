@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 const User = require('../models/user.model')
-const nodemailer = require('../config/mailer.config');
+const nodemailer = require('../config/mailer.config')
 
 module.exports.all = (req, res, next) => {
   User.find()
@@ -35,10 +35,9 @@ const userDemo = {
 
 module.exports.register = (req, res, next) => {
   res.render('user/register', {
-    title: 'Register', user: userDemo
+    title: 'Register', user: userDemo, error: {}, success: {}
   })
 }
-
 
 module.exports.doRegister = (req, res, next) => {
   const userParams = req.body;
@@ -47,19 +46,28 @@ module.exports.doRegister = (req, res, next) => {
   
   user.save()
   .then(user => {
-    nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
-    res.render('user/login', {
-      title: 'Login',
-      message: 'Check your email for activation acount'
-    })
+    res.json(user)
+    // nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
+    // res.render('user/login', {
+    //   title: 'Login',
+    //   success: 'Check your email for activation acount',
+    //   user,
+    //   error: {}
+    // })
   })
   .catch((error) => {
     if (error instanceof mongoose.Error.ValidationError) {
-      res.render("user/register", {title: 'Register', error: error.errors, user });
+      res.render("user/register", {
+        title: 'Register', 
+        success: {},
+        error: error.errors, 
+        user
+      });
     } else if (error.code === 11000) { // error when duplicated user
       res.render("user/register", {
         title: 'Register',
         user,
+        success: {},
         error: {
           email: {
             message: 'Oops there is a problem, try again later'
@@ -100,7 +108,7 @@ module.exports.activateUser = (req, res, next) => {
 
 module.exports.login = (req, res) => {
   res.render('user/login', {
-    title: 'Login', email: null
+    title: 'Login', user: {}
   })
 }
 
@@ -116,12 +124,12 @@ module.exports.doLogin = (req, res, next) => {
 
                 res.redirect('/profile')
               } else {
-                res.render('auth/login', {
+                res.render('user/login', {
                   error: {
                     validation: {
                       message: 'Your account is not active, check your email!'
                     }
-                  }, email: user.email
+                  }, user
                 })
               }
             } else {
@@ -130,7 +138,7 @@ module.exports.doLogin = (req, res, next) => {
                   email: {
                     message: 'This combination email with password does not match, try again'
                   }
-                }, email: user.email
+                }, user
               })
             }
           })
@@ -140,7 +148,7 @@ module.exports.doLogin = (req, res, next) => {
             email: {
               message: "This combination email with password does not match, try again",
             },
-          }, email: user.email
+          }, user
         });
       }
     })

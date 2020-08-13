@@ -10,13 +10,13 @@
             <%= project.owner.name %><br>
             <%= project.owner.email %><br>
           </p>
-          <% if (project.attachment.length !== 0) { %>
+          <% if (project.attachments && project.attachments.length !== 0) { %>
             <hr>
-            <% if (app.locals.helpers.getType(project.attachment, 'gallery').length !== 0) { %>
+            <% if (helpers.getType(project.attachments, 'gallery').length !== 0) { %>
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">  
-                <% app.locals.helpers.getType(project.attachment, 'gallery').forEach(function(attachment){ %>
-                    <div class="carousel-item">
+                <% helpers.getType(project.attachments, 'gallery').forEach((attachment, index) =>{ %>
+                    <div class="carousel-item<% if (index === 0) { %> active<% } %>">
                       <img src="<%= attachment.src %>" class="d-block w-100" alt="<%= attachment.name %>">
                     </div>
                 <% }) %>
@@ -31,13 +31,15 @@
               </a>
               </div>
             <% } %>
-          <% } else { %>
-            <% app.locals.helpers.getNoType(project.attachment, 'gallery').forEach(function(attachment){ %>
-              <p class="card-text">
-                <%= attachment.name %><br>
-                <%= attachment.src %><br>
-              </p>
-              <% }) %>
+            <hr>
+            <% if (helpers.getNoType(project.attachments, 'gallery').length !== 0) { %>
+              <% helpers.getNoType(project.attachments, 'gallery').forEach(attachment => { %>
+                <p class="card-text">
+                  <%= attachment.name %><br>
+                  <%= attachment.type %><br>
+                </p>
+                <% }) %> 
+            <% } %>
           <% } %>
         </div>
       </div>

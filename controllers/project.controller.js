@@ -21,9 +21,11 @@ module.exports.show = (req, res, next) => {
   .populate('owner')
   .then(
     project => {
+      console.log(project)
       res.render('project/show', {
         title: project.name,
-        project
+        project,
+        helpers: res.locals.helpers
       })
     }
   )

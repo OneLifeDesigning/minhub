@@ -7,7 +7,6 @@ const attachmentController = require('../controllers/attachment.controller')
 const uploads = require('../config/multer.config')
 
 router.get('/', publicController.home)
-router.get('/users', userController.all)
 
 router.get('/login', userController.login)
 router.post('/dologin', userController.doLogin)
@@ -16,8 +15,10 @@ router.get('/register', userController.register)
 router.post('/doregister', uploads.single('avatar'), userController.doRegister)
 router.get('/validate/:token', userController.activateUser)
 
-router.get('/projects', projectController.all)
+router.get('/projects/all', projectController.all)
 router.get('/projects/show/:id', projectController.show)
+
+router.get('/users/all', userController.all)
 
 // TODO:
 // router.get('/projects/new/', projectController.new)

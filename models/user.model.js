@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     match: [EMAIL_PATTERN, "Email is invalid"]
   },
+  password: {
+    type: String,
+    minlength: [8, "Password min length is 8"]
+  },
   username: {
     type: String,
     required: [true, "Username is required"],
@@ -41,14 +45,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true
   },
   avatar: {
-    type: String,
-    trim: true
-  },
-  password: {
-    type: String,
-    required: [true, "Password is required"],
-    trim: true,
-    minlength: [8, "Password min length is 8"]
+    type: String
   },
   bio: {
     type: String,
@@ -103,16 +100,17 @@ const userSchema = new mongoose.Schema({
 },
 { timestamps: true, toJSON: { virtuals: true } });
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', function(next) {
   if (this.isModified('password')) {
     bcrypt.hash(this.password, 10)
-      .then((hash) => {
-        this.password = hash;
-        next();
-      })
-      .catch(next())
+    .then((hash) => {
+      this.password = hash
+      console.log(this.password)
+      next()
+    })
+    .catch(next())
   } else {
-    next();
+    next()
   }
 })
 

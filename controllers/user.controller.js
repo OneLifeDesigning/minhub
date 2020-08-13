@@ -46,14 +46,13 @@ module.exports.doRegister = (req, res, next) => {
   
   user.save()
   .then(user => {
-    res.json(user)
-    // nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
-    // res.render('user/login', {
-    //   title: 'Login',
-    //   success: 'Check your email for activation acount',
-    //   user,
-    //   error: {}
-    // })
+    nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
+    res.render('user/login', {
+      title: 'Login',
+      success: 'Check your email for activation acount',
+      user,
+      error: {}
+    })
   })
   .catch((error) => {
     if (error instanceof mongoose.Error.ValidationError) {
@@ -89,17 +88,22 @@ module.exports.activateUser = (req, res, next) => {
       user.save()
         .then(user => {
           res.render('user/login', {
-              message: 'Your account has been activated, log in below!'
-            })
+            title: 'Login',
+            user: user,
+            success: 'Your account has been activated, log in below!',
+            error: {}
+          })
         })
       .catch(next)
     } else {
       res.render('user/login', {
+        title: 'Login',
+        user: {},
         error: {
           validation: {
             message: 'Invalid link'
           }
-        }
+        }, success: {}
       })
     }
   })
@@ -108,7 +112,7 @@ module.exports.activateUser = (req, res, next) => {
 
 module.exports.login = (req, res) => {
   res.render('user/login', {
-    title: 'Login', user: {}
+    title: 'Login', user: {}, success: {}
   })
 }
 

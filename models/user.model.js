@@ -103,12 +103,11 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', function(next) {
   if (this.isModified('password')) {
     bcrypt.hash(this.password, 10)
-    .then((hash) => {
-      this.password = hash
-      console.log(this.password)
-      next()
-    })
-    .catch(next())
+      .then((hash) => {
+        this.password = hash
+        next()
+      })
+      .catch(next)
   } else {
     next()
   }

@@ -196,7 +196,7 @@ npm install:
         - Validate token -> get
         - Refresh token -> get/post
         - Recovery pass -> get/post
-        - Login Social -> get/post
+        - Login Social -> get
       5. errors page -> get
 
   ##### Auth routes (only if logged)
@@ -212,9 +212,22 @@ npm install:
         - Mark/unmark like -> post
 
   #### 5.1 - Controllers
+  
   /controlers/user.controller.js
+    all -> View all users
+    register -> View register page
+    doRegister -> View create new user
+               -> Send email confirm account
+    activateUser -> Validate/activate url token
+    login -> View login page
+    doLogin -> Check/validate credentials for user
+            -> Save user session 
+    doSocialLogiSlack -> Login whit Slack
+    doSocialLoginGoogle -> Login whit Google
+
+  /controlers/project.controler.js
 
 
 ### 6.0 - Login/Register
   Basic login User/Pass
-    
+  Social Auth

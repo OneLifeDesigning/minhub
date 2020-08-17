@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const User = require('../models/user.model')
 const nodemailer = require('../config/mailer.config')
+const passport = require('passport')
 
 module.exports.all = (req, res, next) => {
   User.find()
@@ -16,26 +17,9 @@ module.exports.all = (req, res, next) => {
   )
 }
 
-const userDemo = {
-  email: 'aj_diaz_corres@hotmail.com',
-  password: '12345678',
-  name: 'aaa',
-  lastname: 'test',
-  username: '12udr',
-  bio: '213131',
-  company: 'ada',
-  location: 'asd',
-  website: 'sad',
-  profilesSocial: {
-    slack: 'asd',
-    google: 'dsa',
-    linkedin: 'sad'
-  }
-}
-
 module.exports.register = (req, res, next) => {
   res.render('user/register', {
-    title: 'Register', user: userDemo, error: {}, success: {}
+    title: 'Register', user: {profilesSocial: {}}, error: {}, success: {}
   })
 }
 
@@ -103,7 +87,8 @@ module.exports.activateUser = (req, res, next) => {
           validation: {
             message: 'Invalid link'
           }
-        }, success: {}
+        },
+        success: {}
       })
     }
   })
@@ -112,7 +97,7 @@ module.exports.activateUser = (req, res, next) => {
 
 module.exports.login = (req, res) => {
   res.render('user/login', {
-    title: 'Login', user: {}, success: {}
+    title: 'Login', user: {}, success: null
   })
 }
 
@@ -125,8 +110,7 @@ module.exports.doLogin = (req, res, next) => {
             if (match) {
               if (user.activation.active) {
                 req.session.userId = user._id
-
-                res.redirect('/profile')
+                res.redirect(`/show/${req.session.userId}`)
               } else {
                 res.render('user/login', {
                   error: {
@@ -156,5 +140,43 @@ module.exports.doLogin = (req, res, next) => {
         });
       }
     })
+    .catch(next)
+}
+
+
+module.exports.doSocialLogiSlack = (req, res, next) => {
+  const passportdoSocialLogiSlack = passport.authenticate("slack", (error, user) => {
+    if (error) {
+      next(error);
+    } else {
+      req.session.userId = user._id;
+      res.redirect(`/users/show/${user._id}`);
+    }
+  })
+  
+  passportdoSocialLogiSlack(req, res, next);
+}
+
+module.exports.doSocialLoginGoogle = (req, res, next) => {
+  const passportDoSocialLoginGoogle =  passport.authenticate('google', { scope:  ['profile', 'email'] }, (error, user) => {
+    if (error) {
+      next(error);
+    } else {
+      req.session.userId = user._id;
+      res.redirect(`/users/show/${user._id}`);
+    }
+  })
+  
+  passportDoSocialLoginGoogle(req, res, next)
+}
+
+module.exports.show = (req, res, next) => {
+  User.findOne({id: req.params.id })
+    .then(user => {
+        res.render('user/show', {
+          error: {}, user
+        });
+      }
+    )
     .catch(next)
 }

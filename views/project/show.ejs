@@ -12,7 +12,7 @@
           </p>
           <% if (project.attachments && project.attachments.length !== 0) { %>
             <hr>
-            <% if (helpers.getType(project.attachments, 'gallery').length !== 0) { %>
+            <% if (locals.helpers.getType(project.attachments, 'gallery').length !== 0) { %>
               <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">  
                 <% helpers.getType(project.attachments, 'gallery').forEach((attachment, index) =>{ %>
@@ -32,8 +32,8 @@
               </div>
             <% } %>
             <hr>
-            <% if (helpers.getNoType(project.attachments, 'gallery').length !== 0) { %>
-              <% helpers.getNoType(project.attachments, 'gallery').forEach(attachment => { %>
+            <% if (locals.helpers.getNoType(project.attachments, 'gallery').length !== 0) { %>
+              <% locals.helpers.getNoType(project.attachments, 'gallery').forEach(attachment => { %>
                 <p class="card-text">
                   <%= attachment.name %><br>
                   <%= attachment.type %><br>

@@ -21,10 +21,19 @@ Promise.all([
           email: faker.internet.email(),
           username: faker.internet.userName(),
           avatar: faker.image.avatar(),
+          profileImage: faker.image.image(),
           bio: faker.lorem.sentence(),
           company: faker.company.companyName(),
           location: faker.address.city(),
           website: faker.internet.domainName(),
+          profilesSocial: {
+            slack: this.username,
+            github: this.username,
+            google: this.username,
+            linkedin: this.username,
+            twitter: this.username,
+            facebook: this.username
+          },
           createdAt: faker.date.past()
         })
         

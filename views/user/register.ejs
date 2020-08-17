@@ -35,10 +35,19 @@
       </div>
       <div class="form-group col-12">
         <label>Avatar</label>
-        <div class="input-group mb-3">
+        <div class="input-group mb-2">
           <div class="custom-file">
-            <input type="file" class="custom-file-input" id="avatar" name="avatar" aria-describedby="avatarAddon01">
+            <input type="file" class="custom-file-input" id="avatar" name="avatar">
             <label class="custom-file-label" for="avatar">Choose file</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <label>Imagen de perfil</label>
+        <div class="input-group mb-2">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="profileImage" name="profileImage">
+            <label class="custom-file-label" for="profileImage">Choose file</label>
           </div>
         </div>
       </div>
@@ -58,19 +67,42 @@
         <label for="website">Website</label>
         <input type="text" class="form-control" id="website" name="website" <% if (user.website) { %>value="<%= user.website %>" <% } %>>
       </div>
-      <div class="form-group col-md-12 col-lg-4">
-        <label for="slack">Slack</label>
-        <input type="text" class="form-control" id="slack" name="profilesSocial[slack]" <% if (user.profilesSocial.slack) { %>value="<%= user.profilesSocial.slack %>" <% } %>>
+      <div class="col-12">
+        <hr>
       </div>
       <div class="form-group col-md-12 col-lg-4">
-        <label for="google">Google</label>
-        <input type="text" class="form-control" id="google" name="profilesSocial[google]" <% if (user.profilesSocial.google) { %>value="<%= user.profilesSocial.google %>" <% } %>>
+        <label for="github">Github</label>
+        <input type="text" class="form-control" id="github" name="profilesSocial[github]" <% if (user.profilesSocial.github) { %>value="<%= user.profilesSocial.github %>" <% } %>>
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="linkedin">Linkedin</label>
         <input type="text" class="form-control" id="linkedin" name="profilesSocial[linkedin]" <% if (user.profilesSocial.linkedin) { %>value="<%= user.profilesSocial.linkedin %>" <% } %>>
       </div>
-      <button type="submit" class="btn btn-primary btn-lg">Register</button>
+      <div class="form-group col-md-12 col-lg-4">
+        <label for="slack">Slack</label>
+        <input type="text" class="form-control" id="slack" name="profilesSocial[slack]" <% if (user.profilesSocial.slack) { %>value="<%= user.profilesSocial.slack %>" <% } %>>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <label for="facebook">Facebook</label>
+        <input type="text" class="form-control" id="facebook" name="profilesSocial[facebook]" <% if (user.profilesSocial.facebook) { %>value="<%= user.profilesSocial.facebook %>" <% } %>>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <label for="twitter">Twitter</label>
+        <input type="text" class="form-control" id="twitter" name="profilesSocial[twitter]" <% if (user.profilesSocial.twitter) { %>value="<%= user.profilesSocial.twitter %>" <% } %>>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <label for="google">Google</label>
+        <input type="text" class="form-control" id="google" name="profilesSocial[google]" <% if (user.profilesSocial.google) { %>value="<%= user.profilesSocial.google %>" <% } %>>
+      </div>
+      <div class="col-md-12 col-lg-8">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1">I accept terms</label>
+        </div>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+      </div>
     </form>
   </div>
   <div class="col-12 col-md-4 col-lg-3">

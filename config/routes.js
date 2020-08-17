@@ -1,28 +1,37 @@
 const express = require('express')
 const router = express.Router()
-const publicController = require('../controllers/public.controller')
 const userController = require('../controllers/user.controller')
 const projectController = require('../controllers/project.controller')
 const uploads = require('../config/multer.config')
 const sessionMiddleware = require('../middlewares/session.middleware')
 
-router.get('/', publicController.home)
+router.get('/', sessionMiddleware.getCurrentUser, (req, res) => {
+  res.render('index', {
+    title: 'Home', 
+    currentUser: req.currentUser
+  })
+})
 
-router.get('/login', sessionMiddleware.isNotAuthenticated, userController.login)
-router.post('/dologin', sessionMiddleware.isNotAuthenticated, userController.doLogin)
+router.get('/login', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.login)
+router.post('/dologin', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.doLogin)
 
-router.get('/login/slack', sessionMiddleware.isNotAuthenticated, userController.doSocialLogiSlack)
-router.get('/login/google', sessionMiddleware.isNotAuthenticated, userController.doSocialLoginGoogle)
+router.get('/login/slack', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.doSocialLogiSlack)
+router.get('/login/google', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.doSocialLoginGoogle)
 
-router.get('/register', sessionMiddleware.isNotAuthenticated, userController.register)
-router.post('/doregister', sessionMiddleware.isNotAuthenticated, uploads.single('avatar'), userController.doRegister)
-router.get('/validate/:token', sessionMiddleware.isNotAuthenticated, userController.activateUser)
+router.get('/register', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.register)
+router.post('/doregister', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, uploads.single('avatar'), userController.doRegister)
+router.get('/validate/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.activateUser)
 
-router.get('/projects/all', projectController.all)
-router.get('/projects/show/:id', projectController.show)
+router.get('/profile', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.profile)
+// router.get('/profile/edit', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.editProfile)
 
-router.get('/users/all', userController.all)
-router.get('/users/show/:id', sessionMiddleware.isAuthenticated, userController.show)
+router.post('/logout', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.logout)
+
+router.get('/projects/all', sessionMiddleware.getCurrentUser, projectController.all)
+router.get('/projects/show/:id', sessionMiddleware.getCurrentUser, projectController.show)
+
+router.get('/users/all', sessionMiddleware.getCurrentUser, userController.all)
+router.get('/users/show/:id', sessionMiddleware.getCurrentUser, userController.show)
 
 // TODO:
 // router.get('/projects/new/', projectController.new)

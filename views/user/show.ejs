@@ -1,9 +1,37 @@
 <% if (user) { %>
   <div class="row">
     <div class="col-12 col-sm-8 col-md-7">
-      <div class="card">
-        <img src="<%= user.image %>" class="card-img-top" alt="<%= user.name %>">
-      </div>
+      <div class="card hovercard">
+        <div class="cardheader" style="background-image:url('<%= user.profileImage %>')">
+
+        </div>
+        <div class="avatar">
+            <img alt="<%= user.name %> <%= user.lastname %>" src="<%= user.avatar %>">
+        </div>
+        <div class="info">
+            <div class="title">
+                <%= user.name %> <%= user.lastname %>
+            </div>
+            <div class="desc"><%= user.username %></div>
+            <div class="desc"><%= user.email %></div>
+            <div class="desc"><%= user.bio %></div>
+            <div class="desc"><%= user.company %></div>
+            <div class="desc"><%= user.location %></div>
+            <div class="desc"><%= user.website %></div>
+        </div>
+        <div class="bottom">
+            <a class="btn  btn-secondary btn-sm" href="">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <a class="btn btn-primary btn-sm" rel="publisher"
+               href="">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <a class="btn btn-warning btn-sm" rel="publisher" href="">
+                <i class="fa fa-slack"></i>
+            </a>
+        </div>
+    </div>
     </div>
   </div>
 <% } %>

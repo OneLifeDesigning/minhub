@@ -1,5 +1,20 @@
 const User = require('../models/user.model')
 
+module.exports.getCurrentUser = (req, res, next) => {
+  User.findById(req.session.userId)
+    .then(user => {
+      if (!user) {
+        res.locals.currentUser = false
+        req.currentUser = false
+      } else {
+        res.locals.currentUser = user
+        req.currentUser = user
+      }
+      next()
+    })
+    .catch(next);
+}
+
 module.exports.isAuthenticated = (req, res, next) => {
   User.findById(req.session.userId)
     .then(user => {
@@ -9,7 +24,7 @@ module.exports.isAuthenticated = (req, res, next) => {
 
         next()
       } else {
-        res.redirect('/login?url_redirect=TODO')
+        res.redirect('/profile')
       }
     })
     .catch(next);
@@ -17,7 +32,7 @@ module.exports.isAuthenticated = (req, res, next) => {
 
 module.exports.isNotAuthenticated = (req, res, next) => {
   User.findById(req.session.userId)
-    .then((user) => {
+    .then(user => {
       if (user) {
         res.redirect("/profile");
       } else {

@@ -19,13 +19,16 @@ module.exports.all = (req, res, next) => {
 
 module.exports.register = (req, res, next) => {
   res.render('user/register', {
-    title: 'Register', user: {profilesSocial: {}}, error: {}, success: {}
+    title: 'Register',
+    user: { profilesSocial: false},
+    error: false,
+    success: false
   })
 }
 
 module.exports.doRegister = (req, res, next) => {
   const userParams = req.body;
-  userParams.avatar = req.file ? req.file.path : undefined;
+  userParams.avatar = req.file ? req.file.path : '/img/default-user-avatar.png';
   const user = new User(userParams);
   
   user.save()
@@ -35,22 +38,22 @@ module.exports.doRegister = (req, res, next) => {
       title: 'Login',
       success: 'Check your email for activation acount',
       user,
-      error: {}
+      error: false
     })
   })
   .catch((error) => {
     if (error instanceof mongoose.Error.ValidationError) {
       res.render("user/register", {
         title: 'Register', 
-        success: {},
-        error: error.errors, 
+        success: false,
+        error: error.errors,
         user
       });
     } else if (error.code === 11000) { // error when duplicated user
       res.render("user/register", {
         title: 'Register',
         user,
-        success: {},
+        success: false,
         error: {
           email: {
             message: 'Oops there is a problem, try again later'
@@ -75,20 +78,20 @@ module.exports.activateUser = (req, res, next) => {
             title: 'Login',
             user: user,
             success: 'Your account has been activated, log in below!',
-            error: {}
+            error: false
           })
         })
       .catch(next)
     } else {
       res.render('user/login', {
         title: 'Login',
-        user: {},
+        user: false,
         error: {
           validation: {
             message: 'Invalid link'
           }
         },
-        success: {}
+        success: false
       })
     }
   })
@@ -97,7 +100,9 @@ module.exports.activateUser = (req, res, next) => {
 
 module.exports.login = (req, res) => {
   res.render('user/login', {
-    title: 'Login', user: {}, success: null
+    title: 'Login', 
+    user: false,
+    success: false
   })
 }
 
@@ -110,14 +115,15 @@ module.exports.doLogin = (req, res, next) => {
             if (match) {
               if (user.activation.active) {
                 req.session.userId = user._id
-                res.redirect(`/show/${req.session.userId}`)
+                res.redirect(`/users/show/${req.session.userId}`)
               } else {
                 res.render('user/login', {
                   error: {
                     validation: {
                       message: 'Your account is not active, check your email!'
                     }
-                  }, user
+                  },
+                  user
                 })
               }
             } else {
@@ -126,7 +132,8 @@ module.exports.doLogin = (req, res, next) => {
                   email: {
                     message: 'This combination email with password does not match, try again'
                   }
-                }, user
+                },
+                user
               })
             }
           })
@@ -136,7 +143,8 @@ module.exports.doLogin = (req, res, next) => {
             email: {
               message: "This combination email with password does not match, try again",
             },
-          }, user
+          },
+          user
         });
       }
     })
@@ -149,7 +157,6 @@ module.exports.doSocialLogiSlack = (req, res, next) => {
     if (error) {
       next(error);
     } else {
-      req.session.userId = user._id;
       res.redirect(`/users/show/${user._id}`);
     }
   })
@@ -158,11 +165,10 @@ module.exports.doSocialLogiSlack = (req, res, next) => {
 }
 
 module.exports.doSocialLoginGoogle = (req, res, next) => {
-  const passportDoSocialLoginGoogle =  passport.authenticate('google', { scope:  ['profile', 'email'] }, (error, user) => {
+  const passportDoSocialLoginGoogle = passport.authenticate('google', { scope:  ['profile', 'email'] }, (error, user) => {
     if (error) {
       next(error);
     } else {
-      req.session.userId = user._id;
       res.redirect(`/users/show/${user._id}`);
     }
   })
@@ -170,11 +176,24 @@ module.exports.doSocialLoginGoogle = (req, res, next) => {
   passportDoSocialLoginGoogle(req, res, next)
 }
 
+module.exports.profile = (req, res, next) => {
+  res.redirect(`/users/show/${req.currentUser._id}`);
+}
+
+module.exports.logout = (req, res, next) => {
+  req.session.destroy()
+  
+  res.redirect('/login')
+}
+
 module.exports.show = (req, res, next) => {
-  User.findOne({id: req.params.id })
-    .then(user => {
+  User.findOne({_id: req.params.id })
+  .then(user => {
+    console.log(user)
         res.render('user/show', {
-          error: {}, user
+          title: 'Show user',
+          error: false, 
+          user
         });
       }
     )

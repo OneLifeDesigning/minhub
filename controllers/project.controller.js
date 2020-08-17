@@ -8,7 +8,8 @@ module.exports.all = (req, res, next) => {
     projects => {
       res.render('project/all', {
         title: 'All projects',
-        projects
+        projects,
+        currentUser: req.currentUser ? req.currentUser : false,
       })
     }
   )
@@ -24,7 +25,7 @@ module.exports.show = (req, res, next) => {
       res.render('project/show', {
         title: project.name,
         project,
-        helpers: res.locals.helpers
+        currentUser: req.currentUser ? req.currentUser : false
       })
     }
   )

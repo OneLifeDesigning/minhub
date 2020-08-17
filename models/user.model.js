@@ -47,6 +47,9 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String
   },
+  profileImage: {
+    type: String
+  },
   bio: {
     type: String,
     maxlength: 100
@@ -83,11 +86,23 @@ const userSchema = new mongoose.Schema({
       type: String,
       trim: true
     },
+    github: {
+      type: String,
+      trim: true
+    },
     google: {
       type: String,
       trim: true
     },
     linkedin: {
+      type: String,
+      trim: true
+    },
+    twitter: {
+      type: String,
+      trim: true
+    },
+    facebook: {
       type: String,
       trim: true
     }

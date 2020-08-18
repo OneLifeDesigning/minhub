@@ -27,13 +27,14 @@ Promise.all([
           location: faker.address.city(),
           website: faker.internet.domainName(),
           profilesSocial: {
-            slack: this.username,
-            github: this.username,
-            google: this.username,
-            linkedin: this.username,
-            twitter: this.username,
-            facebook: this.username
+            slack: faker.internet.userName(),
+            github: faker.internet.userName(),
+            google: faker.internet.userName(),
+            linkedin: faker.internet.userName(),
+            twitter: faker.internet.userName(),
+            facebook: faker.internet.userName()
           },
+          terms: true,
           createdAt: faker.date.past()
         })
         

@@ -1,37 +1,53 @@
 <div class="row">
   <div class="col-12 col-md-8 col-lg-9">
     <h1>Create new user</h1>
-    <% if (error.length) { %>
-      <div class="alert alert-warning">
-        <p class="mb-0"><%= error.email.message %></p>
-      </div>
-    <% } %>
-    <% if (success.length) { %>
-      <div class="alert alert-success">
-        <p class="mb-0"><%= success %></p>
-      </div>
-    <% } %>
     <form action="/doregister" method="POST" class="form-row"  enctype="multipart/form-data">
+
       <div class="form-group col-12">
         <label for="email">Email <sup class="text-danger">*</sup></label>
-        <input type="email" class="form-control" id="email" name="email" <% if (user.email) { %>value="<%= user.email %>" <% } %>>
+        <input type="email" class="form-control<% if (errors.email) { %> is-invalid<% } %>" id="email" name="email" <% if (user.email) { %>value="<%= user.email %>" <% } %>>
+        <% if (errors.email) { %>
+          <div class="invalid-feedback">
+            <%= errors.email.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-12">
         <label for="password">Password <sup class="text-danger">*</sup></label>
-        <input name="password" type="password" class="form-control" id="password" <% if (user.password) { %>value="<%= user.password %>" <% } %>>
+        <input name="password" type="password" class="form-control" <% if (errors.password) { %> is-invalid<% } %> id="password" <% if (user.password) { %>value="<%= user.password %>" <% } %>>
+        <% if (errors.password) { %>
+          <div class="invalid-feedback">
+            <%= errors.password.message %>
+          </div>
+        <% } %>
       </div>
       <hr>
       <div class="form-group col-md-6">
         <label for="name">Name <sup class="text-danger">*</sup></label>
-        <input type="text" class="form-control" id="name" name="name" <% if (user.name) { %>value="<%= user.name %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.name) { %> is-invalid<% } %>" id="name" name="name" <% if (user.name) { %>value="<%= user.name %>" <% } %>>
+        <% if (errors.name) { %>
+          <div class="invalid-feedback">
+            <%= errors.name.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-6">
         <label for="lastname">Last name <sup class="text-danger">*</sup></label>
-        <input type="text" class="form-control" id="lastname" name="lastname" <% if (user.lastname) { %>value="<%= user.lastname %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.lastname) { %> is-invalid<% } %>" id="lastname" name="lastname" <% if (user.lastname) { %>value="<%= user.lastname %>" <% } %>>
+        <% if (errors.lastname) { %>
+          <div class="invalid-feedback">
+            <%= errors.lastname.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-12">
         <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" <% if (user.username) { %>value="<%= user.username %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.username) { %> is-invalid<% } %>" id="username" name="username" <% if (user.username) { %>value="<%= user.username %>" <% } %>>
+        <% if (errors.username) { %>
+          <div class="invalid-feedback">
+            <%= errors.username.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-12">
         <label>Avatar</label>
@@ -53,51 +69,106 @@
       </div>
       <div class="form-group col-12">
         <label for="bio">Bio:</label>
-        <textarea class="form-control" name="bio" id="bio" rows="3"><% if (user.bio) { %><%= user.bio %> <% } %></textarea>
+        <textarea class="form-control <% if (errors.bio) { %> is-invalid<% } %>" name="bio" id="bio" rows="3"><% if (user.bio) { %><%= user.bio %> <% } %></textarea>
+        <% if (errors.bio) { %>
+          <div class="invalid-feedback">
+            <%= errors.bio.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label for="company">Company</label>
-        <input type="text" class="form-control" id="company" name="company" <% if (user.company) { %>value="<%= user.company %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.company) { %> is-invalid<% } %>" id="company" name="company" <% if (user.company) { %>value="<%= user.company %>" <% } %>>
+        <% if (errors.company) { %>
+          <div class="invalid-feedback">
+            <%= errors.company.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-6 col-lg-4">
         <label for="location">Location</label>
-        <input type="text" class="form-control" id="location" name="location" <% if (user.location) { %>value="<%= user.location %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.location) { %> is-invalid<% } %>" id="location" name="location" <% if (user.location) { %>value="<%= user.location %>" <% } %>>
+        <% if (errors.location) { %>
+          <div class="invalid-feedback">
+            <%= errors.location.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="website">Website</label>
-        <input type="text" class="form-control" id="website" name="website" <% if (user.website) { %>value="<%= user.website %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.website) { %> is-invalid<% } %>" id="website" name="website" <% if (user.website) { %>value="<%= user.website %>" <% } %>>
+        <% if (errors.website) { %>
+          <div class="invalid-feedback">
+            <%= errors.website.message %>
+          </div>
+        <% } %>
       </div>
       <div class="col-12">
         <hr>
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="github">Github</label>
-        <input type="text" class="form-control" id="github" name="profilesSocial[github]" <% if (user.profilesSocial.github) { %>value="<%= user.profilesSocial.github %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.github) { %> is-invalid<% } %>" id="github" name="profilesSocial[github]" <% if (user.profilesSocial.github) { %>value="<%= user.profilesSocial.github %>" <% } %>>
+        <% if (errors.github) { %>
+          <div class="invalid-feedback">
+            <%= errors.github.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="linkedin">Linkedin</label>
-        <input type="text" class="form-control" id="linkedin" name="profilesSocial[linkedin]" <% if (user.profilesSocial.linkedin) { %>value="<%= user.profilesSocial.linkedin %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.linkedin) { %> is-invalid<% } %>" id="linkedin" name="profilesSocial[linkedin]" <% if (user.profilesSocial.linkedin) { %>value="<%= user.profilesSocial.linkedin %>" <% } %>>
+        <% if (errors.linkedin) { %>
+          <div class="invalid-feedback">
+            <%= errors.linkedin.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="slack">Slack</label>
-        <input type="text" class="form-control" id="slack" name="profilesSocial[slack]" <% if (user.profilesSocial.slack) { %>value="<%= user.profilesSocial.slack %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.slack) { %> is-invalid<% } %>" id="slack" name="profilesSocial[slack]" <% if (user.profilesSocial.slack) { %>value="<%= user.profilesSocial.slack %>" <% } %>>
+        <% if (errors.slack) { %>
+          <div class="invalid-feedback">
+            <%= errors.slack.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="facebook">Facebook</label>
-        <input type="text" class="form-control" id="facebook" name="profilesSocial[facebook]" <% if (user.profilesSocial.facebook) { %>value="<%= user.profilesSocial.facebook %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.facebook) { %> is-invalid<% } %>" id="facebook" name="profilesSocial[facebook]" <% if (user.profilesSocial.facebook) { %>value="<%= user.profilesSocial.facebook %>" <% } %>>
+        <% if (errors.facebook) { %>
+          <div class="invalid-feedback">
+            <%= errors.facebook.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="twitter">Twitter</label>
-        <input type="text" class="form-control" id="twitter" name="profilesSocial[twitter]" <% if (user.profilesSocial.twitter) { %>value="<%= user.profilesSocial.twitter %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.twitter) { %> is-invalid<% } %>" id="twitter" name="profilesSocial[twitter]" <% if (user.profilesSocial.twitter) { %>value="<%= user.profilesSocial.twitter %>" <% } %>>
+        <% if (errors.twitter) { %>
+          <div class="invalid-feedback">
+            <%= errors.twitter.message %>
+          </div>
+        <% } %>
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="google">Google</label>
-        <input type="text" class="form-control" id="google" name="profilesSocial[google]" <% if (user.profilesSocial.google) { %>value="<%= user.profilesSocial.google %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.google) { %> is-invalid<% } %>" id="google" name="profilesSocial[google]" <% if (user.profilesSocial.google) { %>value="<%= user.profilesSocial.google %>" <% } %>>
+        <% if (errors.google) { %>
+          <div class="invalid-feedback">
+            <%= errors.google.message %>
+          </div>
+        <% } %>
       </div>
       <div class="col-md-12 col-lg-8">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="customCheck1">
-          <label class="custom-control-label" for="customCheck1">I accept terms</label>
+          <input type="checkbox" class="custom-control-input <% if (errors.terms) { %> is-invalid<% } %>" name="terms" id="terms">
+          <label class="custom-control-label" for="terms">I accept terms</label>
+          <% if (errors.terms) { %>
+            <div class="invalid-feedback">
+              <%= errors.terms.message %>
+            </div>
+          <% } %>
         </div>
       </div>
       <div class="form-group col-md-12 col-lg-4">

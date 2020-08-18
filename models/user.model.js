@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\']+(\.[^<>()\[\]\.,;:\s@\']+)*)|(\'.+\'))@(([^<>()[\]\.,;:\s@\']+\.)+[^<>()[\]\.,;:\s@\']{2,})$/i;
 
 const generateRandomToken = () => {
   const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -15,31 +15,31 @@ const generateRandomToken = () => {
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "Name is required"],
-    minlength: [3, "Name needs at last 3 chars"],
+    required: [true, 'Name is required'],
+    minlength: [3, 'Name needs at last 3 chars'],
     trim: true
   },
   lastname: {
     type: String,
-    required: [true, "Lastname is required"],
-    minlength: [3, "Lastname needs at last 3 chars"],
+    required: [true, 'Lastname is required'],
+    minlength: [3, 'Lastname needs at last 3 chars'],
     trim: true
   },
   email: {
     type: String,
-    required: [true, "Email is required"],
+    required: [true, 'Email is required'],
     unique: true,
     trim: true,
     lowercase: true,
-    match: [EMAIL_PATTERN, "Email is invalid"]
+    match: [EMAIL_PATTERN, 'Email is invalid']
   },
   password: {
     type: String,
-    minlength: [8, "Password min length is 8"]
+    minlength: [8, 'Password min length is 8']
   },
   username: {
     type: String,
-    required: [true, "Username is required"],
+    required: [true, 'Username is required'],
     unique: true,
     trim: true,
     lowercase: true
@@ -111,6 +111,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ['admin', 'superadmin', 'normal'],
     default: 'normal'
+  },
+  terms: {
+    type: String,
+    required: [true, 'Terms are required'],
+    enum: ['on'],
+    trim: true
   }
 },
 { timestamps: true, toJSON: { virtuals: true } });
@@ -132,6 +138,6 @@ userSchema.methods.checkPassword = function (password) {
   return bcrypt.compare(password, this.password);
 }
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

@@ -20,9 +20,28 @@ module.exports.all = (req, res, next) => {
 module.exports.register = (req, res, next) => {
   res.render('user/register', {
     title: 'Register',
-    user: { profilesSocial: false},
-    error: false,
-    success: false
+    errors: false,
+    user: {
+      // role: "normal",
+      // name: "Coby",
+      // lastname: "Blick",
+      // password: 12345678,
+      // email: "aj_diaz_corres@hotmail.com",
+      // username: "1ld",
+      // bio: "Rerum inventore aspernatur ratione.",
+      // company: "Doyle LLC",
+      // location: "Parkerburgh",
+      // website: "ena.biz",
+      // profilesSocial: {
+      //   slack: "Bridie_Swift",
+      //   github: "Johathan_Reilly42",
+      //   google: "Odie_Schamberger36",
+      //   linkedin: "Novella.Hermann68",
+      //   twitter: "Arden_Nader",
+      //   facebook: "Jorge_Toy"
+      // }
+      profilesSocial: {}
+    }
   })
 }
 
@@ -30,7 +49,6 @@ module.exports.doRegister = (req, res, next) => {
   const userParams = req.body;
   userParams.avatar = req.file ? req.file.path : '/img/default-user-avatar.png';
   const user = new User(userParams);
-  
   user.save()
   .then(user => {
     nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
@@ -38,30 +56,31 @@ module.exports.doRegister = (req, res, next) => {
       title: 'Login',
       success: 'Check your email for activation acount',
       user,
-      error: false
+      errors: false
     })
   })
-  .catch((error) => {
-    if (error instanceof mongoose.Error.ValidationError) {
+  .catch(errors => {
+    if (errors instanceof mongoose.Error.ValidationError) {
+      console.log(errors.errors.terms);
       res.render("user/register", {
         title: 'Register', 
         success: false,
-        error: error.errors,
+        errors: errors.errors,
         user
       });
-    } else if (error.code === 11000) { // error when duplicated user
+    } else if (error.code === 11000) {
       res.render("user/register", {
         title: 'Register',
         user,
         success: false,
-        error: {
+        errors: {
           email: {
             message: 'Oops there is a problem, try again later'
           }
         }
       });
     } else {
-      next(error);
+      next(errors);
     }
   })
   .catch(next)
@@ -78,7 +97,7 @@ module.exports.activateUser = (req, res, next) => {
             title: 'Login',
             user: user,
             success: 'Your account has been activated, log in below!',
-            error: false
+            errors: false
           })
         })
       .catch(next)
@@ -86,7 +105,7 @@ module.exports.activateUser = (req, res, next) => {
       res.render('user/login', {
         title: 'Login',
         user: false,
-        error: {
+        errors: {
           validation: {
             message: 'Invalid link'
           }
@@ -189,10 +208,9 @@ module.exports.logout = (req, res, next) => {
 module.exports.show = (req, res, next) => {
   User.findOne({_id: req.params.id })
   .then(user => {
-    console.log(user)
         res.render('user/show', {
           title: 'Show user',
-          error: false, 
+          errors: false, 
           user
         });
       }

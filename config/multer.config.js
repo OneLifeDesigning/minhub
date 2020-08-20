@@ -6,13 +6,14 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_KEY,
   api_secret: process.env.CLOUDINARY_SECRET,
 });
-const storage = new CloudinaryStorage({
+
+const uploads = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "tweethack",
-    allowedFormats: ["jpg", "png"],
-  },
+    folder: 'minhub',
+    allowedFormats: ['jpeg','jpg', 'png'],
+  }
 });
-const uploadCloud = multer({ storage });
-module.exports = uploadCloud;
+
+module.exports = multer({ uploads })
   

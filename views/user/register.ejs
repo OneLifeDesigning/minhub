@@ -2,7 +2,11 @@
   <div class="col-12 col-md-8 col-lg-9">
     <h1>Create new user</h1>
     <form action="/doregister" method="POST" class="form-row"  enctype="multipart/form-data">
-
+      <% if (errors.general) { %>
+        <div class="col-12 alert alert-danger">
+          <p class="mb-0 text-center"><%= errors.general.message %></p>
+        </div>
+      <% } %>
       <div class="form-group col-12">
         <label for="email">Email <sup class="text-danger">*</sup></label>
         <input type="email" class="form-control<% if (errors.email) { %> is-invalid<% } %>" id="email" name="email" <% if (user.email) { %>value="<%= user.email %>" <% } %>>
@@ -59,7 +63,7 @@
         </div>
       </div>
       <div class="form-group col-12">
-        <label>Imagen de perfil</label>
+        <label>Profile Image</label>
         <div class="input-group mb-2">
           <div class="custom-file">
             <input type="file" class="custom-file-input" id="profileImage" name="profileImage">
@@ -108,7 +112,7 @@
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="github">Github</label>
-        <input type="text" class="form-control <% if (errors.github) { %> is-invalid<% } %>" id="github" name="profilesSocial[github]" <% if (user.profilesSocial.github) { %>value="<%= user.profilesSocial.github %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.github) { %> is-invalid<% } %>" id="github" name="socialProfiles[github]" <% if (user.socialProfiles.github) { %>value="<%= user.socialProfiles.github %>" <% } %>>
         <% if (errors.github) { %>
           <div class="invalid-feedback">
             <%= errors.github.message %>
@@ -117,7 +121,7 @@
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="linkedin">Linkedin</label>
-        <input type="text" class="form-control <% if (errors.linkedin) { %> is-invalid<% } %>" id="linkedin" name="profilesSocial[linkedin]" <% if (user.profilesSocial.linkedin) { %>value="<%= user.profilesSocial.linkedin %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.linkedin) { %> is-invalid<% } %>" id="linkedin" name="socialProfiles[linkedin]" <% if (user.socialProfiles.linkedin) { %>value="<%= user.socialProfiles.linkedin %>" <% } %>>
         <% if (errors.linkedin) { %>
           <div class="invalid-feedback">
             <%= errors.linkedin.message %>
@@ -126,7 +130,7 @@
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="slack">Slack</label>
-        <input type="text" class="form-control <% if (errors.slack) { %> is-invalid<% } %>" id="slack" name="profilesSocial[slack]" <% if (user.profilesSocial.slack) { %>value="<%= user.profilesSocial.slack %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.slack) { %> is-invalid<% } %>" id="slack" name="socialProfiles[slack]" <% if (user.socialProfiles.slack) { %>value="<%= user.socialProfiles.slack %>" <% } %>>
         <% if (errors.slack) { %>
           <div class="invalid-feedback">
             <%= errors.slack.message %>
@@ -135,7 +139,7 @@
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="facebook">Facebook</label>
-        <input type="text" class="form-control <% if (errors.facebook) { %> is-invalid<% } %>" id="facebook" name="profilesSocial[facebook]" <% if (user.profilesSocial.facebook) { %>value="<%= user.profilesSocial.facebook %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.facebook) { %> is-invalid<% } %>" id="facebook" name="socialProfiles[facebook]" <% if (user.socialProfiles.facebook) { %>value="<%= user.socialProfiles.facebook %>" <% } %>>
         <% if (errors.facebook) { %>
           <div class="invalid-feedback">
             <%= errors.facebook.message %>
@@ -144,7 +148,7 @@
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="twitter">Twitter</label>
-        <input type="text" class="form-control <% if (errors.twitter) { %> is-invalid<% } %>" id="twitter" name="profilesSocial[twitter]" <% if (user.profilesSocial.twitter) { %>value="<%= user.profilesSocial.twitter %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.twitter) { %> is-invalid<% } %>" id="twitter" name="socialProfiles[twitter]" <% if (user.socialProfiles.twitter) { %>value="<%= user.socialProfiles.twitter %>" <% } %>>
         <% if (errors.twitter) { %>
           <div class="invalid-feedback">
             <%= errors.twitter.message %>
@@ -153,7 +157,7 @@
       </div>
       <div class="form-group col-md-12 col-lg-4">
         <label for="google">Google</label>
-        <input type="text" class="form-control <% if (errors.google) { %> is-invalid<% } %>" id="google" name="profilesSocial[google]" <% if (user.profilesSocial.google) { %>value="<%= user.profilesSocial.google %>" <% } %>>
+        <input type="text" class="form-control <% if (errors.google) { %> is-invalid<% } %>" id="google" name="socialProfiles[google]" <% if (user.socialProfiles.google) { %>value="<%= user.socialProfiles.google %>" <% } %>>
         <% if (errors.google) { %>
           <div class="invalid-feedback">
             <%= errors.google.message %>

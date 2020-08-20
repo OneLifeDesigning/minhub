@@ -19,11 +19,11 @@ router.get('/login/slack', sessionMiddleware.getCurrentUser, sessionMiddleware.i
 router.get('/login/google', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.doSocialLoginGoogle)
 
 router.get('/register', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.register)
-router.post('/doregister', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, uploads.single('avatar'), userController.doRegister)
+router.post('/doregister', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, uploads.any(), userController.doRegister)
 router.get('/validate/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.activateUser)
+router.get('/resendToken', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.generateToken)
 
 router.get('/profile', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.profile)
-// router.get('/profile/edit', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.editProfile)
 
 router.post('/logout', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.logout)
 
@@ -34,6 +34,7 @@ router.get('/users/all', sessionMiddleware.getCurrentUser, userController.all)
 router.get('/users/show/:id', sessionMiddleware.getCurrentUser, userController.show)
 
 // TODO:
+// router.get('/profile/edit', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.editProfile)
 // router.get('/projects/new/', projectController.new)
 // router.get('/projects/edit/:id', projectController.edit)
 // router.post('/projects/save/:id', projectController.save)

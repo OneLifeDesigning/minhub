@@ -77,11 +77,11 @@ const userSchema = new mongoose.Schema({
       default: generateRandomToken
     }
   },
-  loginSocial: {
+  socialLogin: {
     slack: String,
     google: String
   },
-  profilesSocial: {
+  socialProfiles: {
     slack: {
       type: String,
       trim: true
@@ -109,8 +109,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'superadmin', 'normal'],
-    default: 'normal'
+    enum: ['admin', 'superadmin', 'user'],
+    default: 'user'
   },
   terms: {
     type: String,
@@ -133,6 +133,8 @@ userSchema.pre('save', function(next) {
     next()
   }
 })
+
+{basasxasd: '16494319F'}
 
 userSchema.methods.checkPassword = function (password) {
   return bcrypt.compare(password, this.password);

@@ -3,6 +3,15 @@ const User = require('../models/user.model')
 const nodemailer = require('../config/mailer.config')
 const passport = require('passport')
 
+const generateRandomToken = () => {
+  const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let token = '';
+  for (let i = 0; i < 25; i++) {
+    token += characters[Math.floor(Math.random() * characters.length)];
+  }
+  return token;
+}
+
 module.exports.all = (req, res, next) => {
   User.find()
   .sort({createdAt: -1})
@@ -22,32 +31,40 @@ module.exports.register = (req, res, next) => {
     title: 'Register',
     errors: false,
     user: {
-      // role: "normal",
-      // name: "Coby",
-      // lastname: "Blick",
-      // password: 12345678,
-      // email: "aj_diaz_corres@hotmail.com",
-      // username: "1ld",
-      // bio: "Rerum inventore aspernatur ratione.",
-      // company: "Doyle LLC",
-      // location: "Parkerburgh",
-      // website: "ena.biz",
-      // profilesSocial: {
-      //   slack: "Bridie_Swift",
-      //   github: "Johathan_Reilly42",
-      //   google: "Odie_Schamberger36",
-      //   linkedin: "Novella.Hermann68",
-      //   twitter: "Arden_Nader",
-      //   facebook: "Jorge_Toy"
-      // }
-      profilesSocial: {}
+      role: 'user',
+      name: 'Coby',
+      lastname: 'Blick',
+      password: 12345678,
+      email: 'aj_diaz_corres@hotmail.com',
+      username: '1ld',
+      bio: 'Rerum inventore aspernatur ratione.',
+      company: 'Doyle LLC',
+      location: 'Parkerburgh',
+      website: 'ena.biz',
+      socialProfiles: {
+        slack: 'Bridie_Swift',
+        github: 'Johathan_Reilly42',
+        google: 'Odie_Schamberger36',
+        linkedin: 'Novella.Hermann68',
+        twitter: 'Arden_Nader',
+        facebook: 'Jorge_To',
+      }
+      // socialProfiles: {}
     }
   })
 }
 
 module.exports.doRegister = (req, res, next) => {
   const userParams = req.body;
-  userParams.avatar = req.file ? req.file.path : '/img/default-user-avatar.png';
+  const urserFiles = req.files
+  urserFiles.forEach(file => {
+    if (file.fieldname === 'avatar') {
+      userParams.avatar = file.path ? file.path : '/img/default-user-avatar.png';
+    } else {
+      userParams.profileImage = file.path ? file.path : '/img/default-user-profile.png';
+    }
+  });
+  
   const user = new User(userParams);
   user.save()
   .then(user => {
@@ -68,13 +85,13 @@ module.exports.doRegister = (req, res, next) => {
         errors: errors.errors,
         user
       });
-    } else if (error.code === 11000) {
+    } else if (errors.code === 11000) {
       res.render("user/register", {
         title: 'Register',
         user,
         success: false,
         errors: {
-          email: {
+          general: {
             message: 'Oops there is a problem, try again later'
           }
         }
@@ -124,6 +141,36 @@ module.exports.login = (req, res) => {
     success: false
   })
 }
+module.exports.generateToken = (req, res, next) => {
+  User.findOne({email: req.query.email})
+    .then(user => {
+        if (!user.activation.active) {
+          user.activation.token = generateRandomToken
+          user.save()
+          .then(user => {
+              nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
+              res.render('user/login', {
+                title: 'Login',
+                success: 'Check again your email for activation acount',
+                user,
+                errors: false
+              })
+          })
+        } else {
+          res.render('user/login', {
+            title: 'Login', 
+            errors: {
+              password: {
+                message: 'Your account is active, reset your password!'
+              }
+            },
+            success: false,
+            user
+          })
+        }
+    })
+    .catch(next)
+}
 
 module.exports.doLogin = (req, res, next) => {
   User.findOne({email: req.body.email})
@@ -137,33 +184,39 @@ module.exports.doLogin = (req, res, next) => {
                 res.redirect(`/users/show/${req.session.userId}`)
               } else {
                 res.render('user/login', {
-                  error: {
+                  title: 'Login', 
+                  errors: {
                     validation: {
                       message: 'Your account is not active, check your email!'
                     }
                   },
+                  success: false,
                   user
                 })
               }
             } else {
               res.render('auth/login', {
-                error: {
+                title: 'Login', 
+                errors: {
                   email: {
                     message: 'This combination email with password does not match, try again'
                   }
                 },
-                user
+                user,
+                success: false
               })
             }
           })
       } else {
         res.render('auth/login', {
-          error: {
+          title: 'Login', 
+          errors: {
             email: {
               message: "This combination email with password does not match, try again",
             },
           },
-          user
+          user,
+          success: false
         });
       }
     })

@@ -107,6 +107,7 @@ npm install:
   * email
   * username
   * avatar
+  * profileImage
   * password
   * bio
   * company
@@ -115,14 +116,18 @@ npm install:
   * activation
     * active
     * token
-  * loginSocial: 
+  * socialLogin: 
       * slack
       * google
-  * profilesSocial
+  * socialProfiles
     * slack
+    * github
     * google
     * linkedin
+    * twitter
+    * facebook
   * role 
+  * terms
 
 /models/project.model.js
   * name

@@ -1,4 +1,5 @@
 require("../config/db.config");
+require("../config/db.config");
 
 const User = require("../models/user.model");
 const Project = require("../models/project.model");
@@ -26,7 +27,7 @@ Promise.all([
           company: faker.company.companyName(),
           location: faker.address.city(),
           website: faker.internet.domainName(),
-          profilesSocial: {
+          socialProfiles: {
             slack: faker.internet.userName(),
             github: faker.internet.userName(),
             google: faker.internet.userName(),
@@ -34,9 +35,11 @@ Promise.all([
             twitter: faker.internet.userName(),
             facebook: faker.internet.userName()
           },
-          terms: true,
+          role: 'user',
+          terms: 'on',
           createdAt: faker.date.past()
         })
+
         
         user.save()
           .then(() => {

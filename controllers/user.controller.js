@@ -64,14 +64,13 @@ module.exports.doRegister = (req, res, next) => {
       userParams.profileImage = file.path ? file.path : '/img/default-user-profile.png';
     }
   });
-  
   const user = new User(userParams);
   user.save()
   .then(user => {
     nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
     res.render('user/login', {
       title: 'Login',
-      success: 'Check your email for activation acount',
+      success: 'Your acount are created, check your email for activate',
       user,
       errors: false
     })

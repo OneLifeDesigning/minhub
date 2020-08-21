@@ -80,14 +80,16 @@ npm install:
 ### 1.6 - Add template files
     /views/layout.ejs
           …index.ejs
-          …/user/login.ejs
-                …register.ejs
-                …recovery.ejs
-                …all.ejs
+          …/users/all.ejs
                 …show.ejs
-          …/project/all.ejs
-                  …show.ejs
-                  …form.ejs
+                …edit.ejs
+                …login.ejs
+                …recovery.ejs
+                …register.ejs
+          …/projects/all.ejs
+                …show.ejs
+                …edit.ejs
+                …create.ejs
 
 ### 2.0 - Create db.config.js
 /config/db.config.js

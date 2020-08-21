@@ -21,7 +21,8 @@ router.get('/login/google', sessionMiddleware.getCurrentUser, sessionMiddleware.
 router.get('/register', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.register)
 router.post('/doregister', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, uploads.any(), userController.doRegister)
 router.get('/validate/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.activateUser)
-router.get('/resendtoken/:email', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.generateToken)
+
+router.get('/resendtoken/:email', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.sendGenerateToken)
 
 router.get('/sendchangepassword/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.sendChangePassword)
 router.get('/changepassword/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.changePassword)
@@ -37,9 +38,10 @@ router.get('/projects/show/:id', sessionMiddleware.getCurrentUser, projectContro
 router.get('/users/all', sessionMiddleware.getCurrentUser, userController.all)
 router.get('/users/show/:id', sessionMiddleware.getCurrentUser, userController.show)
 
+router.get('/projects/create/', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, projectController.create)
+
 // TODO:
 // router.get('/profile/edit', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.editProfile)
-// router.get('/projects/new/', projectController.new)
 // router.get('/projects/edit/:id', projectController.edit)
 // router.post('/projects/save/:id', projectController.save)
 // router.get('/projects/delete/:id', projectController.delete)

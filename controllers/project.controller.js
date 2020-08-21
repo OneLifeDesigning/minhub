@@ -6,10 +6,10 @@ module.exports.all = (req, res, next) => {
   .limit(100)
   .then(
     projects => {
-      res.render('project/all', {
+      res.render('projects/all', {
         title: 'All projects',
         projects,
-        currentUser: req.currentUser ? req.currentUser : false,
+  
       })
     }
   )
@@ -22,12 +22,25 @@ module.exports.show = (req, res, next) => {
   .populate('owner')
   .then(
     project => {
-      res.render('project/show', {
+      res.render('projects/show', {
         title: project.name,
-        project,
-        currentUser: req.currentUser ? req.currentUser : false
+        project
       })
     }
   )
   .catch(next)
+}
+module.exports.create = (req, res, next) => {
+  res.render('projects/create', {
+    title: 'Create new project',
+    errors: false,
+    project: false
+  })
+}
+module.exports.doCreate = (req, res, next) => {
+  res.render('projects/create', {
+    title: 'Create new project',
+    errors: false,
+    project: false
+  })
 }

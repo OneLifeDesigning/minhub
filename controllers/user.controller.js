@@ -18,7 +18,7 @@ module.exports.all = (req, res, next) => {
   .limit(100)
   .then(
     users => {
-      res.render('user/all', {
+      res.render('users/all', {
         title: 'All users',
         users
       })
@@ -27,7 +27,7 @@ module.exports.all = (req, res, next) => {
 }
 
 module.exports.register = (req, res, next) => {
-  res.render('user/register', {
+  res.render('users/register', {
     title: 'Register',
     errors: false,
     user: {
@@ -52,7 +52,7 @@ module.exports.doRegister = (req, res, next) => {
   user.save()
   .then(user => {
     nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
-    res.render('user/login', {
+    res.render('users/login', {
       title: 'Login',
       success: 'Your acount are created, check your email for activate',
       user,
@@ -93,7 +93,7 @@ module.exports.activateUser = (req, res, next) => {
       user.activation.active = true;
       user.save()
         .then(user => {
-          res.render('user/login', {
+          res.render('users/login', {
             title: 'Login',
             user: user,
             success: 'Your account has been activated, log in below!',
@@ -102,7 +102,7 @@ module.exports.activateUser = (req, res, next) => {
         })
       .catch(next)
     } else {
-      res.render('user/login', {
+      res.render('users/login', {
         title: 'Login',
         user: false,
         errors: {
@@ -118,7 +118,7 @@ module.exports.activateUser = (req, res, next) => {
 }
 
 module.exports.login = (req, res) => {
-  res.render('user/login', {
+  res.render('users/login', {
     title: 'Login', 
     user: false,
     success: false,
@@ -137,7 +137,7 @@ module.exports.doLogin = (req, res, next) => {
                 req.session.userId = user._id
                 res.redirect(`/users/show/${req.session.userId}`)
               } else {
-                res.render('user/login', {
+                res.render('users/login', {
                   title: 'Login', 
                   errors: {
                     validation: {
@@ -150,7 +150,7 @@ module.exports.doLogin = (req, res, next) => {
               }
             } else {
               if (user.activation.active) {
-                res.render('user/login', {
+                res.render('users/login', {
                   title: 'Login', 
                   errors: {
                     email: {
@@ -164,7 +164,7 @@ module.exports.doLogin = (req, res, next) => {
                   success: false
                 })
               } else {
-                res.render('user/login', {
+                res.render('users/login', {
                   title: 'Login', 
                   errors: {
                     validation: {
@@ -178,7 +178,7 @@ module.exports.doLogin = (req, res, next) => {
             }
           })
       } else {
-        res.render('user/login', {
+        res.render('users/login', {
           title: 'Login', 
           errors: {
             email: {
@@ -193,7 +193,7 @@ module.exports.doLogin = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.generateToken = (req, res, next) => {
+module.exports.sendGenerateToken = (req, res, next) => {
   User.findOne({email: req.params.email})
     .then(user => {
         if (!user.activation.active) {
@@ -202,7 +202,7 @@ module.exports.generateToken = (req, res, next) => {
           user.save()
           .then(user => {
               nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
-              res.render('user/login', {
+              res.render('users/login', {
                 title: 'Login',
                 success: 'Check again your email for activation acount',
                 user,
@@ -210,7 +210,7 @@ module.exports.generateToken = (req, res, next) => {
               })
           })
         } else {
-          res.render('user/login', {
+          res.render('users/login', {
             title: 'Login', 
             errors: {
               password: {
@@ -230,14 +230,14 @@ module.exports.sendChangePassword = (req, res, next) => {
     .then(user => {
       if (user) {
         nodemailer.changePasswordEmail(user.email, user.activation.token, user.name);
-        res.render('user/login', {
+        res.render('users/login', {
           title: 'Login',
-          success: 'Check your email for change youºr password',
+          success: 'Check your email for change your password',
           user,
           errors: false
         })
       } else {
-        res.render('user/login', {
+        res.render('users/login', {
           title: 'Login', 
           errors: {
             validation: {
@@ -256,14 +256,14 @@ module.exports.changePassword = (req, res, next) => {
   User.findOne({ "activation.token": req.params.token })
     .then(user => {
       if (user) {
-        res.render('user/recovery', {
+        res.render('users/recovery', {
           title: 'Change password',
           success: false,
           user,
           errors: false
         })
       } else {
-        res.render('user/login', {
+        res.render('users/login', {
           title: 'Login', 
           errors: {
             password: {
@@ -277,12 +277,13 @@ module.exports.changePassword = (req, res, next) => {
     })
     .catch(next)
 }
+
 module.exports.doChangePassword = (req, res, next) => {
   User.findOne({ "activation.token": req.params.token })
     .then(user => {
       if (user) {
         if (req.body.password.length === 0 || req.body.passwordValidate.length === 0 || req.body.password !== req.body.passwordValidate) {
-          res.render('user/recovery', {
+          res.render('users/recovery', {
             title: 'Change password',
             success: false,
             user,
@@ -296,7 +297,7 @@ module.exports.doChangePassword = (req, res, next) => {
           user.password = req.body.password
           user.save()
             .then(user => {
-              res.render('user/login', {
+              res.render('users/login', {
                 title: 'Login', 
                 errors: false,
                 user,
@@ -306,7 +307,7 @@ module.exports.doChangePassword = (req, res, next) => {
             .catch(next)
         }
       } else {
-        res.render('user/login', {
+        res.render('users/login', {
           title: 'Login',
           user: false,
           errors: {
@@ -358,7 +359,7 @@ module.exports.logout = (req, res, next) => {
 module.exports.show = (req, res, next) => {
   User.findOne({_id: req.params.id })
   .then(user => {
-        res.render('user/show', {
+        res.render('users/show', {
           title: 'Show user',
           errors: false, 
           user

@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-12 col-md-8 col-lg-9">
+    <h1>Create new project</h1>
+    <form action="/docreate" method="POST" class="form-row"  enctype="multipart/form-data">
+      <% if (errors.general) { %>
+        <div class="col-12 alert alert-danger">
+          <p class="mb-0 text-center"><%= errors.general.message %></p>
+        </div>
+      <% } %>
+      <div class="form-group col-12">
+        <label for="name">Name <sup class="text-danger">*</sup></label>
+        <input type="name" class="form-control<% if (errors.name) { %> is-invalid<% } %>" id="name" name="name" <% if (project.name) { %>value="<%= project.name %>" <% } %>>
+        <% if (errors.name) { %>
+          <div class="invalid-feedback">
+            <%= errors.name.message %>
+          </div>
+        <% } %>
+      </div>
+      <div class="form-group col-12">
+        <label for="description">Description:</label>
+        <textarea class="form-control <% if (errors.description) { %> is-invalid<% } %>" name="description" id="description" rows="3"><% if (project.description) { %><%= project.description %> <% } %></textarea>
+        <% if (errors.description) { %>
+          <div class="invalid-feedback">
+            <%= errors.description.message %>
+          </div>
+        <% } %>
+      </div>
+      <div class="form-group col-12">
+        <label>Main image</label>
+        <div class="input-group mb-2">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="image" name="image">
+            <label class="custom-file-label" for="image">Choose file</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-8">
+        <div class="custom-control custom-checkbox mb-3">
+          <input type="checkbox" class="custom-control-input <% if (errors.terms) { %> is-invalid<% } %>" name="terms" id="terms">
+          <label class="custom-control-label" for="terms">I accept terms</label>
+          <% if (errors.terms) { %>
+            <div class="invalid-feedback">
+              <%= errors.terms.message %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="form-group col-md-12 col-lg-4">
+        <button type="submit" class="btn btn-primary btn-block">Create</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-12 col-md-4 col-lg-3">
+    <h2 class="text-center">Do you have a user?</h2>
+    <a href="/login" class="btn btn-danger btn-block">Login</a>
+  </div>
+</div>

@@ -6,6 +6,15 @@ const Project = require("../models/project.model");
 const Attachment = require("../models/attachment.model");
 const faker = require("faker");
 
+const generateRandomToken = () => {
+  const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let token = '';
+  for (let i = 0; i < 25; i++) {
+    token += characters[Math.floor(Math.random() * characters.length)];
+  }
+  return token;
+}
+
 const attachmentIds = []
 
 Promise.all([
@@ -17,10 +26,11 @@ Promise.all([
       console.log('empty database')
       for (let i = 0; i < 100; i++) {
         const user = new User({
-          name: faker.name.firstName(),
+          name: faker.name.firstName(5),
           lastname: faker.name.lastName(),
           email: faker.internet.email(),
           username: faker.internet.userName(),
+          password: 12345678,
           avatar: faker.image.avatar(),
           profileImage: faker.image.image(),
           bio: faker.lorem.sentence(),
@@ -34,6 +44,10 @@ Promise.all([
             linkedin: faker.internet.userName(),
             twitter: faker.internet.userName(),
             facebook: faker.internet.userName()
+          },
+          activation: {
+            active: true,
+            token: generateRandomToken()
           },
           role: 'user',
           terms: 'on',
@@ -69,7 +83,7 @@ Promise.all([
                   attachmentIds.push(attachment.id)
 
                   if (attachmentIds.length === 8000) {
-                    console.log('Seeds are in database, press Ctrl+c to close connection')
+                    console.log('Seeds plant in DB, press Ctrl+c to close connection')
                   }
                   attachment.save()
                 }

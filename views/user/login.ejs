@@ -27,7 +27,7 @@
         <label for="email">Email address</label>
         <input type="email" class="form-control " id="email" name="email" aria-describedby="emailHelp" 
         <% if (user.email) { %>
-          value="<%= user.email %>"<% } else { %>value="aj_diaz_corres@hotmail.com"<% }%>>
+          value="<%= user.email %>"<% }%>>
           <% if (errors.email) { %>
             <div class="invalid-feedback">
               <%= errors.email.message %>
@@ -36,7 +36,7 @@
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input name="password" type="password" class="form-control" id="password" value="12345678">
+        <input name="password" type="password" class="form-control" id="password">
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
     </form>

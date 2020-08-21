@@ -1,14 +1,10 @@
 <% if (user) { %>
   <div class="row">
     <div class="col-12 col-sm-8 col-md-7">
-      <div class="card hovercard">
-        <div class="cardheader" style="background-image:url('<%= user.profileImage %>')">
-
-        </div>
-        <div class="avatar">
-            <img alt="<%= user.name %> <%= user.lastname %>" src="<%= user.avatar %>">
-        </div>
-        <div class="info">
+      <div class="card">
+          <div class="info">
+            <img class="img-fluid" alt="<%= user.name %> <%= user.lastname %>" src="<%= user.profileImage %>">
+            <img class="img-fluid" alt="<%= user.name %> <%= user.lastname %>" src="<%= user.avatar %>">
             <div class="title">
                 <%= user.name %> <%= user.lastname %>
             </div>

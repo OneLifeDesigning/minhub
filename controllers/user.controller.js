@@ -31,32 +31,16 @@ module.exports.register = (req, res, next) => {
     title: 'Register',
     errors: false,
     user: {
-      role: 'user',
-      name: 'Coby',
-      lastname: 'Blick',
-      password: 12345678,
-      email: 'aj_diaz_corres@hotmail.com',
-      username: '1ld',
-      bio: 'Rerum inventore aspernatur ratione.',
-      company: 'Doyle LLC',
-      location: 'Parkerburgh',
-      website: 'ena.biz',
-      socialProfiles: {
-        slack: 'Bridie_Swift',
-        github: 'Johathan_Reilly42',
-        google: 'Odie_Schamberger36',
-        linkedin: 'Novella.Hermann68',
-        twitter: 'Arden_Nader',
-        facebook: 'Jorge_To',
-      }
-      // socialProfiles: {}
+      socialProfiles: {}
     }
   })
 }
 
 module.exports.doRegister = (req, res, next) => {
   const userParams = req.body;
-  const urserFiles = req.files
+  userParams.avatar = '/img/default-user-avatar.png';
+  userParams.profileImage = '/img/default-user-profile.png';
+  const urserFiles = req.files ? req.files : [{}]
   urserFiles.forEach(file => {
     if (file.fieldname === 'avatar') {
       userParams.avatar = file.path ? file.path : '/img/default-user-avatar.png';
@@ -87,7 +71,7 @@ module.exports.doRegister = (req, res, next) => {
     } else if (errors.code === 11000) {
       res.render("user/register", {
         title: 'Register',
-        user,
+        user: false,
         success: false,
         errors: {
           general: {
@@ -165,19 +149,32 @@ module.exports.doLogin = (req, res, next) => {
                 })
               }
             } else {
-              res.render('user/login', {
-                title: 'Login', 
-                errors: {
-                  email: {
-                    message: 'This combination email with password does not match, try again'
+              if (user.activation.active) {
+                res.render('user/login', {
+                  title: 'Login', 
+                  errors: {
+                    email: {
+                      message: 'This combination email with password does not match, try again'
+                    },
+                    password: {
+                      message: 'You want to generate a new password'
+                    }
                   },
-                  password: {
-                    message: 'You want to generate a new password'
-                  }
-                },
-                user,
-                success: false
-              })
+                  user,
+                  success: false
+                })
+              } else {
+                res.render('user/login', {
+                  title: 'Login', 
+                  errors: {
+                    validation: {
+                      message: 'Your account is not active, check your email!'
+                    }
+                  },
+                  success: false,
+                  user
+                })
+              }
             }
           })
       } else {
@@ -235,7 +232,7 @@ module.exports.sendChangePassword = (req, res, next) => {
         nodemailer.changePasswordEmail(user.email, user.activation.token, user.name);
         res.render('user/login', {
           title: 'Login',
-          success: 'Check your email for change yor password',
+          success: 'Check your email for change youºr password',
           user,
           errors: false
         })
@@ -254,14 +251,15 @@ module.exports.sendChangePassword = (req, res, next) => {
     })
     .catch(next)
 }
+
 module.exports.changePassword = (req, res, next) => {
   User.findOne({ "activation.token": req.params.token })
     .then(user => {
       if (user) {
         res.render('user/recovery', {
           title: 'Change password',
-          user,
           success: false,
+          user,
           errors: false
         })
       } else {
@@ -280,30 +278,47 @@ module.exports.changePassword = (req, res, next) => {
     .catch(next)
 }
 module.exports.doChangePassword = (req, res, next) => {
-  console.log(req.session);
-//   User.findOne({ "activation.token": req.params.token })
-//     .then(user => {
-//       if (user) {
-//         res.render('user/recovery', {
-//           title: 'Change password',
-//           user,
-//           success: false,
-//           errors: false
-//         })
-//       } else {
-//         res.render('user/login', {
-//           title: 'Login', 
-//           errors: {
-//             password: {
-//               message: 'Invalid link, try again to reset your password!'
-//             }
-//           },
-//           user,
-//           success: false
-//         });
-//       }
-//     })
-//     .catch(next)
+  User.findOne({ "activation.token": req.params.token })
+    .then(user => {
+      if (user) {
+        if (req.body.password.length === 0 || req.body.passwordValidate.length === 0 || req.body.password !== req.body.passwordValidate) {
+          res.render('user/recovery', {
+            title: 'Change password',
+            success: false,
+            user,
+            errors: {
+              validation: {
+                message: 'The passwords not match!, try again'
+              }
+            }
+          })
+        } else {
+          user.password = req.body.password
+          user.save()
+            .then(user => {
+              res.render('user/login', {
+                title: 'Login', 
+                errors: false,
+                user,
+                success: 'Change password are success, login again'
+              })
+            })
+            .catch(next)
+        }
+      } else {
+        res.render('user/login', {
+          title: 'Login',
+          user: false,
+          errors: {
+            validation: {
+              message: 'Something has gone wrong, please try again'
+            }
+          },
+          success: false
+        })
+      } 
+    })
+    .catch(next)
 }
 
 module.exports.doSocialLogiSlack = (req, res, next) => {

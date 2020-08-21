@@ -24,9 +24,8 @@ router.get('/validate/:token', sessionMiddleware.getCurrentUser, sessionMiddlewa
 router.get('/resendtoken/:email', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.generateToken)
 
 router.get('/sendchangepassword/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.sendChangePassword)
-
 router.get('/changepassword/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.changePassword)
-router.post('/dochangepassword', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.doChangePassword)
+router.post('/dochangepassword/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.doChangePassword)
 
 router.get('/profile', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.profile)
 

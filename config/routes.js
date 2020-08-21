@@ -21,7 +21,12 @@ router.get('/login/google', sessionMiddleware.getCurrentUser, sessionMiddleware.
 router.get('/register', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.register)
 router.post('/doregister', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, uploads.any(), userController.doRegister)
 router.get('/validate/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.activateUser)
-router.get('/resendToken', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.generateToken)
+router.get('/resendtoken/:email', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.generateToken)
+
+router.get('/sendchangepassword/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.sendChangePassword)
+
+router.get('/changepassword/:token', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.changePassword)
+router.post('/dochangepassword', sessionMiddleware.getCurrentUser, sessionMiddleware.isNotAuthenticated, userController.doChangePassword)
 
 router.get('/profile', sessionMiddleware.getCurrentUser, sessionMiddleware.isAuthenticated, userController.profile)
 

@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-12 col-md-5 col-lg-6">
+    <h1>Reset your password </h1>
+    <% if (success) { %>
+      <div class="alert alert-success">
+        <p class="mb-0"><%= success %> </p>
+      </div>
+    <% } %>
+    <% if (errors.validation) { %>
+      <div class="alert alert-success">
+        <p><%= errors.validation.message %> </p>
+        <% if (user.email) {%> 
+          <p class="mb-0">Need new email?, <a href="/resendtoken?email=<%= user.email %>">click here</a></p>
+        <% } %>
+      </div>
+    <% } %>
+    <form action="/dochangepassword" method="POST">
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input name="password" type="password" class="form-control" id="password" value="12345678">
+      </div>
+      <div class="form-group">
+        <label for="passwordValidation">Repeat Password</label>
+        <input name="passwordValidation" type="password" class="form-control" id="passwordValidation" value="12345678">
+      </div>
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </div>
+</div>

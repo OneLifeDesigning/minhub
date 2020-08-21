@@ -138,14 +138,71 @@ module.exports.login = (req, res) => {
   res.render('user/login', {
     title: 'Login', 
     user: false,
-    success: false
+    success: false,
+    errors: false
   })
 }
+
+module.exports.doLogin = (req, res, next) => {
+  User.findOne({email: req.body.email})
+    .then(user => {
+      if (user) {
+        user.checkPassword(req.body.password)
+          .then(match => {
+            if (match) {
+              if (user.activation.active) {
+                req.session.userId = user._id
+                res.redirect(`/users/show/${req.session.userId}`)
+              } else {
+                res.render('user/login', {
+                  title: 'Login', 
+                  errors: {
+                    validation: {
+                      message: 'Your account is not active, check your email!'
+                    }
+                  },
+                  success: false,
+                  user
+                })
+              }
+            } else {
+              res.render('user/login', {
+                title: 'Login', 
+                errors: {
+                  email: {
+                    message: 'This combination email with password does not match, try again'
+                  },
+                  password: {
+                    message: 'You want to generate a new password'
+                  }
+                },
+                user,
+                success: false
+              })
+            }
+          })
+      } else {
+        res.render('user/login', {
+          title: 'Login', 
+          errors: {
+            email: {
+              message: "This combination email with password does not match, try again",
+            }
+          },
+          user,
+          success: false
+        });
+      }
+    })
+    .catch(next)
+}
+
 module.exports.generateToken = (req, res, next) => {
-  User.findOne({email: req.query.email})
+  User.findOne({email: req.params.email})
     .then(user => {
         if (!user.activation.active) {
-          user.activation.token = generateRandomToken
+          user.activation.token = generateRandomToken()
+          console.log(user.activation.token);
           user.save()
           .then(user => {
               nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);
@@ -172,48 +229,49 @@ module.exports.generateToken = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.doLogin = (req, res, next) => {
-  User.findOne({email: req.body.email})
+module.exports.sendChangePassword = (req, res, next) => {
+  User.findOne({ "activation.token": req.params.token })
     .then(user => {
       if (user) {
-        user.checkPassword(req.body.password)
-          .then(match => {
-            if (match) {
-              if (user.activation.active) {
-                req.session.userId = user._id
-                res.redirect(`/users/show/${req.session.userId}`)
-              } else {
-                res.render('user/login', {
-                  title: 'Login', 
-                  errors: {
-                    validation: {
-                      message: 'Your account is not active, check your email!'
-                    }
-                  },
-                  success: false,
-                  user
-                })
-              }
-            } else {
-              res.render('auth/login', {
-                title: 'Login', 
-                errors: {
-                  email: {
-                    message: 'This combination email with password does not match, try again'
-                  }
-                },
-                user,
-                success: false
-              })
-            }
-          })
+        nodemailer.changePasswordEmail(user.email, user.activation.token, user.name);
+        res.render('user/login', {
+          title: 'Login',
+          success: 'Check your email for change yor password',
+          user,
+          errors: false
+        })
       } else {
-        res.render('auth/login', {
+        res.render('user/login', {
           title: 'Login', 
           errors: {
-            email: {
-              message: "This combination email with password does not match, try again",
+            validation: {
+              message: "This token are invalid",
             },
+          },
+          user: false,
+          success: false
+        });
+      }
+    })
+    .catch(next)
+}
+module.exports.changePassword = (req, res, next) => {
+  User.findOne({ "activation.token": req.params.token })
+    .then(user => {
+      if (user) {
+        res.render('user/recovery', {
+          title: 'Change password',
+          user,
+          success: false,
+          errors: false
+        })
+      } else {
+        res.render('user/login', {
+          title: 'Login', 
+          errors: {
+            password: {
+              message: 'Invalid link, try again to reset your password!'
+            }
           },
           user,
           success: false
@@ -222,7 +280,32 @@ module.exports.doLogin = (req, res, next) => {
     })
     .catch(next)
 }
-
+module.exports.doChangePassword = (req, res, next) => {
+  console.log(req.session);
+//   User.findOne({ "activation.token": req.params.token })
+//     .then(user => {
+//       if (user) {
+//         res.render('user/recovery', {
+//           title: 'Change password',
+//           user,
+//           success: false,
+//           errors: false
+//         })
+//       } else {
+//         res.render('user/login', {
+//           title: 'Login', 
+//           errors: {
+//             password: {
+//               message: 'Invalid link, try again to reset your password!'
+//             }
+//           },
+//           user,
+//           success: false
+//         });
+//       }
+//     })
+//     .catch(next)
+}
 
 module.exports.doSocialLogiSlack = (req, res, next) => {
   const passportdoSocialLogiSlack = passport.authenticate("slack", (error, user) => {

@@ -25,3 +25,16 @@ module.exports.sendValidationEmail = (email, activationToken, name) => {
 		`
 	})
 }
+
+module.exports.changePasswordEmail = (email, activationToken, name) => {
+	transport.sendMail({
+		to: email,
+		from: `Minhub project demo <${user}>`,
+		subject: 'Refresh your password!',
+		html: `
+			<h1>Hi ${name}</h1>
+			<p>Click on the button below to refresh your password ❤️</p>
+			<a href="${host}/changepassword/${activationToken}" style="padding: 10px 20px; color: white; background-color: red; border-radius: 0px;">Click here</a>
+		`
+	})
+}

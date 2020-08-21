@@ -80,16 +80,14 @@ npm install:
 ### 1.6 - Add template files
     /views/layout.ejs
           …index.ejs
-          …/auth/login.ejs
+          …/user/login.ejs
                 …register.ejs
                 …recovery.ejs
-                …refreshtoken.ejs
+                …all.ejs
+                …show.ejs
           …/project/all.ejs
                   …show.ejs
                   …form.ejs
-          …/user/all.ejs
-                …show.ejs
-                …form.ejs
 
 ### 2.0 - Create db.config.js
 /config/db.config.js
@@ -200,7 +198,7 @@ npm install:
         - Create new user -> get/post
         - Validate token -> get
         - Refresh token -> get/post
-        - Recovery pass -> get/post
+        - Change password -> get/post
         - Login Social -> get
       5. errors page -> get
 

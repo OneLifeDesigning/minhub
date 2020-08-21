@@ -7,18 +7,18 @@
       </div>
     <% } %>
     <% if (errors.validation) { %>
-      <div class="alert alert-success">
+      <div class="alert alert-danger">
         <p><%= errors.validation.message %> </p>
         <% if (user.email) {%> 
-          <p class="mb-0">Need new email?, <a href="/resendToken?email=<%= user.email %>">click here</a></p>
+          <p class="mb-0">Need new link?, <a href="/resendtoken/<%= user.email %>">click here</a></p>
         <% } %>
       </div>
     <% } %>
     <% if (errors.password) { %>
-      <div class="alert alert-success">
+      <div class="alert alert-warning">
         <p><%= errors.password.message %> </p>
-        <% if (user.email) {%> 
-          <p class="mb-0">Refresh your password?, <a href="/refreshPassword?email=<%= user.email %>">click here</a></p>
+        <% if (user.password) {%> 
+          <p class="mb-0">Change your password?, <a href="/sendchangepassword/<%= user.activation.token %>">click here</a></p>
         <% } %>
       </div>
     <% } %>

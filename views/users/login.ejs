@@ -25,9 +25,7 @@
     <form action="/dologin" method="POST">
       <div class="form-group">
         <label for="email">Email address</label>
-        <input type="email" class="form-control " id="email" name="email" aria-describedby="emailHelp" 
-        <% if (user.email) { %>
-          value="<%= user.email %>"<% } else {%>value="onelifedesigning@gmail.com"<% } %>>
+        <input type="email" class="form-control " id="email" name="email" aria-describedby="emailHelp" <% if (user.email) { %>value="<%= user.email %>"<% } else {%>value="onelifedesigning@gmail.com"<% } %> required>
           <% if (errors.email) { %>
             <div class="invalid-feedback">
               <%= errors.email.message %>
@@ -36,7 +34,7 @@
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input name="password" type="password" class="form-control" id="password" value="12345679">
+        <input name="password" type="password" class="form-control" id="password" value="12345679" required>
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
     </form>

@@ -135,8 +135,6 @@ userSchema.pre('save', function(next) {
   }
 })
 
-{basasxasd: '16494319F'}
-
 userSchema.methods.checkPassword = function (password) {
   return bcrypt.compare(password, this.password);
 }

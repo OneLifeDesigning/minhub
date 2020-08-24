@@ -9,6 +9,7 @@ require('./config/db.config')
 
 const session = require("./config/session.config")
 const passport = require('./config/passport.config')
+const sessionMiddleware = require('./middlewares/session.middleware')
 
 const app = express()
 
@@ -18,6 +19,8 @@ app.use(logger('dev'))
 app.use(cookieParser())
 app.use(session)
 app.use(passport)
+
+app.use(sessionMiddleware.getCurrentUser)
 
 /**
  * View engine setup

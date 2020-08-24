@@ -198,7 +198,6 @@ module.exports.sendGenerateToken = (req, res, next) => {
     .then(user => {
         if (!user.activation.active) {
           user.activation.token = generateRandomToken()
-          console.log(user.activation.token);
           user.save()
           .then(user => {
               nodemailer.sendValidationEmail(user.email, user.activation.token, user.name);

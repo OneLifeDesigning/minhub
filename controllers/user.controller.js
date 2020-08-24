@@ -48,6 +48,7 @@ module.exports.doRegister = (req, res, next) => {
       userParams.profileImage = file.path ? file.path : '/img/default-user-profile.png';
     }
   });
+  userParams.role = 'user';
   const user = new User(userParams);
   user.save()
   .then(user => {

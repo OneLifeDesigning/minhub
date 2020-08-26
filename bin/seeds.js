@@ -1,5 +1,4 @@
 require("../config/db.config");
-require("../config/db.config");
 
 const User = require("../models/user.model");
 const Project = require("../models/project.model");
